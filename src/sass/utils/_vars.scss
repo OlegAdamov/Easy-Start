@@ -1,0 +1,16 @@
+:root {
+--main-text-color: #ffffff;
+--error-color: #FF001B;
+--button-color: #FF6B08;
+--button-hover-color: #a04306;
+--janre-color: #FF6B08;
+--modal-title-color: #8C8C8C;
+--title-color: #545454;
+--typical-margin: 60px;
+--transition-duration: 250ms;
+--transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+$mobile: 320px;
+$tablet: 768px;
+$desktop: 1280px;

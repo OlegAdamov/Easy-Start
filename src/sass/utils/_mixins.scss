@@ -1,0 +1,13 @@
+@mixin font($mb, $fw, $fs, $lh, $ls, $tt, $ta, $col, $bcol) {
+    margin-bottom: $mb;
+    font-weight: $fw;
+    font-size: $fs;
+    line-height: $lh;
+    letter-spacing: $ls;
+    text-transform: $tt;
+    text-align: $ta;
+    color: $col;
+    background-color: $bcol;
+}
+
+// @include font($mb, $fw, $fs, $lh, $ls, $tt, $ta, $col, $bcol);

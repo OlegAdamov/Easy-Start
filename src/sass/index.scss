@@ -1,2 +1,16 @@
 @import './common';
-@import './example';
+
+@import './utils/vars';
+@import './base/reset';
+@import './utils/mixins';
+@import './utils/hidden';
+
+
+@import './header';
+@import './pagination';
+@import './gallery';
+@import './modal_main';
+@import './modal_footer';
+@import './footer';
+// @import './some';
+// @import './some';
