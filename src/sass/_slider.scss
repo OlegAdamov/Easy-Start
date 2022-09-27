@@ -1,0 +1,32 @@
+
+
+.slider-wrapper {
+    background-color: rgb(247, 247, 247);
+    padding-bottom: 20px;
+    font-size: 13px;
+  
+    @media screen and (max-width: 1023px) {
+      display: none;
+    }
+  }
+  
+  .glide__arrow {
+    background-color: #ff6b08;
+  }
+  
+  
+  .slider-title {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+  
+    color: #818181;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 2;
+    text-transform: uppercase;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  
