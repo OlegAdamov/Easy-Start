@@ -7,6 +7,7 @@ const refs = {
 };
 
 refs.searchForm.addEventListener('submit', searchMovies);
+
 async function searchMovies(e) {
   e.preventDefault();
   filmAPIService.query = e.target.elements.searchQuery.value.trim();
@@ -17,8 +18,6 @@ async function searchMovies(e) {
   const responsePopularMovie = await filmAPIService.getMovieByQuery();
   const movies = await responsePopularMovie.data.results;
   renderGalleryMarkupByQuery(movies);
-  console.log('searchMovies ~ responsePopularMovie', responsePopularMovie);
-  console.log('searchMovies ~ movies', movies);
 }
 
 async function getResponseMovie() {
