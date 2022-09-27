@@ -3,13 +3,15 @@
   // flex-wrap: wrap;
   list-style: none;
 }
-// .gallery__item{
-// }
+.gallery__item {
+  margin-bottom: 20px;
+}
 .gallery__link {
   text-decoration: none;
 }
 .gallery__img {
   width: 280px;
+  margin-bottom: 10px;
 }
 
 .gallery__title {
@@ -30,13 +32,6 @@
     color: #ff6b08;
   }
 
-  .gallery__item {
-    margin-bottom: 20px;
-  }
-  .gallery__img {
-    width: 280px;
-    height: 393px;
-  }
   //   .gallery__title {
   //    }
   // .gallery__discription{
