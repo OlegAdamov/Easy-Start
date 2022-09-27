@@ -1,6 +1,45 @@
-
-
-
 h6 {
     color: green;
 }
+
+
+.footer {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    background-color: #F7F7F7;
+        @media screen and (min-width: ($tablet)) {
+            height: 80px;
+        }
+    
+    &>.container {
+        padding: 0 30px;
+        @media screen and (min-width: ($tablet)) {
+            display: flex;
+            justify-content: center;
+        }
+
+        & > p {
+
+        @include font(null, null, 14px, 16px, null, null, center, var(--title-color), null);
+        margin-bottom: 10px;
+           
+        @media screen and (min-width: ($tablet)) {
+        Font-size: 16px;
+        Line-height: 19px;
+        margin-bottom: 0;
+        };
+        
+    };
+    };
+};
+ .footer--icon {
+        margin-right: 10px;
+        margin-left: 10px;
+        }
+
+
+
+
+// --transition-duration: 250ms;
+// --transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
