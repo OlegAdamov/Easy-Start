@@ -1,3 +1,109 @@
-h2 {
-    color: red;
+.heder_bgr{
+    background-image: url(../images/bgr-heder-mob.jpg);
+    @media screen and (min-width: 768px) {
+        background-image: url(../images/bgr-heder-tablet.jpg);
+    }
+    @media screen and (min-width: 1280px) {
+        background-image: url(../images/bgr-heder-desk.jpg);
+    }
+}
+
+.none {
+    display: none;
+        @media screen and (min-width: 768px){
+            display:inline-block;
+        }
+}
+
+.heder_nav {
+    display: flex;
+    align-items: center;
+    padding-bottom: 40px;
+    @media screen and (min-width: 768px){
+        justify-content: center;
+    }
+}
+
+.heder_icon {
+    @media screen and (min-width: 768px){
+        margin-right: 8px;
+    }
+}
+.heder_href {
+    margin-left: auto;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    &:first-child{
+        margin-left: 0px;
+    }
+    @media screen and (min-width: 768px) {
+        &:first-child{
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 35px;
+        }
+    }
+}
+
+.heder_href:last-child{
+    margin-left: 40px;
+}
+/////////////////Active page//////////////////////////////
+.curent {
+    float: left;
+    display: block;
+    text-align: center;
+    border-bottom: 3px solid transparent;
+}
+
+.curent:hover{
+    border-bottom: 3px solid red;
+}
+
+.curent {
+    border-bottom: 3px solid red;
+}
+
+////////////////////////////FORMSTYLE////////////////////////
+.input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom:0.5px  solid #FFFFFF;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    @media screen and (min-width: 768px){
+        width: 400px;
+    }
+}
+
+.input:active,
+    :hover,
+    :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+
+.form_pdg {
+    padding-bottom: 50px;
+}
+.search-form {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+.button {
+    border: medium none;
+    background-image: none;
+    background: transparent;
+    float: left;
+    background-color: transparent;
+    right: 20px;
 }
