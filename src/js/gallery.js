@@ -5,22 +5,29 @@ const refs = {
   gallery: document.querySelector('.gallery'),
   searchForm: document.getElementById('search-form'),
 };
-async function getResponseMovie() {
-  const response = await filmAPIService.getPopularMovie();
-  const movies = await response.data.results;
-  console.log('getResponseMovie ~ v', movies);
-  const moviArray = movies.map(({ ids }) => ids);
-  filmAPIService.moviId = moviArray.map(id => id);
-  console.log(filmAPIService.moviId);
-  renderGalleryMarkup(movies);
 
-  // .then(res => {
-  //   console.log(res);
-  //   renderGalleryMarkup(res);
-  // })
-  // .catch(error => {
-  //   console.log(error);
-  // });
+refs.searchForm.addEventListener('submit', searchMovies);
+async function searchMovies(e) {
+  e.preventDefault();
+  filmAPIService.query = e.target.elements.searchQuery.value.trim();
+  if (filmAPIService.query === '') {
+    Notify.failure('Please enter a search word!');
+    return;
+  }
+  const responsePopularMovie = await filmAPIService.getMovieByQuery();
+  const movies = await responsePopularMovie.data.results;
+  renderGalleryMarkupByQuery(movies);
+  console.log('searchMovies ~ responsePopularMovie', responsePopularMovie);
+  console.log('searchMovies ~ movies', movies);
+}
+
+async function getResponseMovie() {
+  const responsePopularMovie = await filmAPIService.getPopularMovie();
+  const responseGenres = await filmAPIService.getGenres();
+  const movies = await responsePopularMovie.data.results;
+  const genres = await responseGenres.data.genres;
+  const genre = genres.map(genre => filmAPIService.genres.push(genre));
+  renderGalleryMarkup(movies);
 }
 getResponseMovie();
 
@@ -29,6 +36,10 @@ function renderGalleryMarkup(res) {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
 
+function renderGalleryMarkupByQuery(movies) {
+  const markup = createGalleryMarkup(movies);
+  refs.gallery.innerHTML = markup;
+}
 function createGalleryMarkup(res) {
   return res
     .map(
