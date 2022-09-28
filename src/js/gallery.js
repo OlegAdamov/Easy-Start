@@ -4,8 +4,14 @@ const filmAPIService = new FilmAPIService();
 const refs = {
   gallery: document.querySelector('.gallery'),
   searchForm: document.getElementById('search-form'),
+  loader: document.getElementById('preloader'),
 };
-
+window.addEventListener('load', onLoader)
+function onLoader() {
+  setTimeout(() => {
+    refs.loader.style.display = 'none';
+ },1000)
+}
 refs.searchForm.addEventListener('submit', searchMovies);
 
 async function searchMovies(e) {
@@ -52,7 +58,7 @@ function createGalleryMarkup(res) {
             <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" class="gallery__img">
 
            <h2 class="gallery__title">${title}</h2>
-            <div class ="discription"><p class="gallery__discription">${release_date}</p>
+            <div class ="discription"><p class="gallery__discription">${release_date.slice(0,4)}</p>
             </div>
         </a>
     </li>`
