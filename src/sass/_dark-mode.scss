@@ -1,0 +1,21 @@
+.icon{
+    position: absolute;
+    display: block;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    fill: #ffffff;
+    
+}
+.darkTheme{
+    background-color: #272E36;
+    h2{color: #ffffff;}
+    header{
+        -webkit-box-shadow: 4px 20px 36px 15px rgba(0, 0, 0, 0.35);
+            -moz-box-shadow: 4px 20px 36px 15px rgba(0, 0, 0, 0.35);
+            box-shadow: 4px 20px 36px 15px rgba(0, 0, 0, 0.35);
+    }
+    
+}
