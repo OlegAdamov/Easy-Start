@@ -58,3 +58,13 @@
     line-height: 1.2;
   }
 }
+#preloader{
+
+  z-index: 100;
+  position: fixed;
+  background:#ffffff url(../images/Settings.gif);
+  background-repeat: no-repeat;
+  background-position: top;
+  width: 100%;
+  height: 100vw;
+}
