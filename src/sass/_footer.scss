@@ -6,37 +6,45 @@ h6 {
 .footer {
     display: flex;
     align-items: center;
-    height: 100px;
+    padding: 30px 0 20px 0; 
     background-color: #F7F7F7;
         @media screen and (min-width: ($tablet)) {
             height: 80px;
-        }
-    
+            padding-bottom: 30px;;
+        };
+
     &>.container {
-        padding: 0 30px;
+
+
+        padding: 0;
         @media screen and (min-width: ($tablet)) {
             display: flex;
             justify-content: center;
-        }
+        };
 
         & > p {
-
+            display: flex;
+            align-items: center;
+            justify-content: center;
         @include font(null, null, 14px, 16px, null, null, center, var(--title-color), null);
         margin-bottom: 10px;
+       
            
         @media screen and (min-width: ($tablet)) {
-        Font-size: 16px;
-        Line-height: 19px;
+        font-size: 16px;
+        line-height: 19px;
         margin-bottom: 0;
-        };
-        
+        }; 
     };
+
+        
+   
     };
 };
  .footer--icon {
         margin-right: 10px;
         margin-left: 10px;
-        }
+        };
 
 
 
