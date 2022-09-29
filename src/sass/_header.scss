@@ -1,10 +1,11 @@
+.header_bgr {
+    padding: 15px;
+    background-image: url(../images/bgr-header-mob.jpg);
 
-.heder_bgr{position: relative;
-        padding: 15px;
-    background-image: url(../images/bgr-heder-mob.jpg);
-    @media screen and (min-width: 768px) {
-        background-image: url(../images/bgr-heder-tablet.jpg);
+    @media screen and (min-width: $tablet) {
+        background-image: url(../images/bgr-header-tablet.jpg);
     }
+
     @media screen and (min-width: $desktop) {
         background-image: url(../images/bgr-header-desk.jpg);
         width: $desktop;
@@ -36,9 +37,7 @@
     }
 }
 
-.sss {
-    fill: #323232;
-}
+
 .header_href {
     margin-left: auto;
     text-decoration: none;
