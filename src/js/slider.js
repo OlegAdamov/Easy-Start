@@ -1,12 +1,11 @@
 import Glide from '@glidejs/glide';
-// import templateFunction from './templates.hbs';
-// import filmsCardSliderTpl from './templates/slider.hbs';
+import axios from 'axios';
+import filmsCardSliderTpl from '../templates/slider.hbs';
 
-// document.body.innerHTML = templateFunction();
-// const sliderContainer = document.querySelector('.js-slider-container');
+
+const sliderContainer = document.querySelector('.js-slider-container');
 renderTrendy();
-
-// const filmsCardSlider = new filmsCardSlider();
+const filmsCardSlider = new filmsCardSliderTpl();
 
 const glide = new Glide('.glide', {
   type: 'slider',
@@ -28,10 +27,11 @@ function renderTrendy() {
     })
     .then(renderSliderFilms)
     .catch(err => {
-      sliderContainer.innerHTML = `<img class="catch-error-pagination" src="${errorUrl}" />`;
+      console.log('err');
+      // sliderContainer.innerHTML = `<img class="catch-error-pagination" src="https://ik.imagekit.io/tc8jxffbcvf/default-movie-portrait_EmJUj9Tda5wa.jpg?tr=fo-auto,di-"  />`;
     });
 }
 
 function renderSliderFilms(articles) {
-  sliderContainer.innerHTML = filmsCardSlider(articles);
+  sliderContainer.innerHTML = filmsCardSliderTpl(articles);
 }
