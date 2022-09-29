@@ -1,12 +1,12 @@
 
 .heder_bgr{position: relative;
         padding: 15px;
-    background-image: url(../images/bgr-heder-mob.jpg);
+    background-image: url(./images/bgr-heder-mob.jpg);
     @media screen and (min-width: 768px) {
-        background-image: url(../images/bgr-heder-tablet.jpg);
+        background-image: url(./images/bgr-heder-tablet.jpg);
     }
     @media screen and (min-width: $desktop) {
-        background-image: url(../images/bgr-header-desk.jpg);
+        background-image: url(./images/bgr-header-desk.jpg);
         width: $desktop;
         padding: 32px;
         margin-left: auto;
