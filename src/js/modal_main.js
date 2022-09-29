@@ -1,3 +1,4 @@
+
 import storageApi from './localStorage/storage';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -66,3 +67,20 @@ addQueued.addEventListener('click', () => {
   storageApi.save(QUEUED_KEY, savedData);
   Notify.info('Added to Queue');
 });
+
+import { createGalleryMarkup } from "./gallery";
+
+const refs = {
+    galleryRef: document.querySelector('.gallery'),
+    closeBtn: document.querySelector('[modal-close-btn]'),
+    modal: document.querySelector('.modal-main'),
+    galleryItem: document.querySelector('.gallery__item')
+}
+console.log(refs.galleryRef)
+console.log(refs.modal)
+refs.closeBtn.addEventListener('click',removeBtn)
+
+function removeBtn () {
+    refs.modal.classList.add ('is-hidden');
+}
+
