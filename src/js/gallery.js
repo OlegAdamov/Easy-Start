@@ -10,7 +10,7 @@ window.addEventListener('load', onLoader)
 function onLoader() {
   setTimeout(() => {
     refs.loader.style.display = 'none';
- },1000)
+ },500)
 }
 refs.searchForm.addEventListener('submit', searchMovies);
 
