@@ -1,5 +1,5 @@
 const backTopBtn = document.querySelector('#back-top');
-refs.backTopBtn.addEventListener('click', scrollToTop);
+backTopBtn.addEventListener('click', scrollToTop);
 
 window.onscroll = function () {
   visabilityButtonSwitcher();
@@ -10,9 +10,9 @@ function visabilityButtonSwitcher() {
     document.body.scrollTop > 400 ||
     document.documentElement.scrollTop > 400
   ) {
-    refs.backTopBtn.style.display = 'block';
+    backTopBtn.style.display = 'block';
   } else {
-    refs.backTopBtn.style.display = 'none';
+    backTopBtn.style.display = 'none';
   }
 }
 

@@ -1,6 +1,7 @@
 import FilmAPIService from './feach/FilmAPIService';
 import moviesMurkup from '../templates/movi-card.hbs';
 import remakeGenres from './remake-genres-ids';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const filmAPIService = new FilmAPIService();
 
 const refs = {
@@ -25,15 +26,18 @@ async function searchMovies(e) {
     Notify.failure('Please enter a search word!');
     return;
   }
-  const responsePopularMovie = await filmAPIService.getMovieByQuery();
-  const movies = await responsePopularMovie.data.results;
-  createGalleryMarkupByQuery(remakeGenres(movies, filmAPIService.genres));
+  try {
+    const responsePopularMovie = await filmAPIService.getMovieByQuery();
+    const movies = await responsePopularMovie.data.results;
+    createGalleryMarkupByQuery(remakeGenres(movies, filmAPIService.genres));
+  } catch (error) {
+    Notify.failure(error.name);
+  }
 }
 
 async function getResponseMovie() {
   const responsePopularMovie = await filmAPIService.getPopularMovie();
   const movies = await responsePopularMovie.data.results;
-  console.log(remakeGenres(movies, filmAPIService.genres));
   createGalleryCard(remakeGenres(movies, filmAPIService.genres));
 }
 
@@ -47,8 +51,4 @@ function createGalleryCard(res) {
 function createGalleryMarkupByQuery(movies) {
   const markup = createGalleryMarkup(movies);
   refs.gallery.innerHTML = markup;
-}
-
-async function sortRightGenre(genres) {
-  console.log(genres);
 }
