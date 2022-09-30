@@ -17,6 +17,17 @@ const filmVote = document.querySelector('#vote');
 const WATCHED_KEY = 'watched-films-list';
 const QUEUED_KEY = 'queued-films-list';
 
+// function checkInStorage(data, key) {
+//   const savedData = storageApi.load(key);
+//   for (const el of savedData) {
+//     if (JSON.stringify(el) === JSON.stringify(data)) {
+//       return true;
+//     }
+//   }
+
+//   return false;
+// }
+
 addWatched.addEventListener('click', () => {
   const tempData = {
     title: filmTitle.textContent,
