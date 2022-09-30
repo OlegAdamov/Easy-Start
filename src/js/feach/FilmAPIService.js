@@ -1,6 +1,6 @@
 import axios from 'axios';
 const BASE_UR = 'https://api.themoviedb.org/3/';
-const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
+// const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
 export default class FilmAPIService {
   constructor() {
     this.query = '';
