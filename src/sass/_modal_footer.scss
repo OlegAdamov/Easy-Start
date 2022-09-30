@@ -1,9 +1,9 @@
 .footer__modal {
     background-color: var(--title-color);
 
-    &--name {
-@include font($mb, $fw, $fs, $lh, $ls, $tt, $ta, $col, $bcol);    
-}
+//     &--name {
+// @include font($mb, $fw, $fs, $lh, $ls, $tt, $ta, $col, $bcol);    
+// }
 
     &--list {
         display: flex;
