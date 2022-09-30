@@ -24,7 +24,6 @@
     "handlebars": "^4.7.7",
     "tui-pagination": "^3.4.1",
     "notiflix": "^3.2.5"
-
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
@@ -35,5 +34,5 @@
     "posthtml-include": "^1.7.4",
     "process": "^0.11.10"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead"
+  "browserslist": "> 0.5%, last 1 versions, not dead"
 }
