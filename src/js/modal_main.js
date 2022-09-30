@@ -5,7 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
     galleryRef: document.querySelector('.gallery'),
-    closeBtn: document.querySelector('[modal-close-btn]'),
+    closeBtn: document.querySelector('.modal-close-btn'),
     modal: document.querySelector('.modal-main'),
     galleryItem: document.querySelector('.gallery__item')
 }
