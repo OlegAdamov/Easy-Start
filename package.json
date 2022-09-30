@@ -18,11 +18,13 @@
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "dependencies": {
-    "@glidejs/glide": "^3.6.0",
-    "axios": "^0.27.2",
-    "handlebars": "^4.7.7",
     "modern-normalize": "^1.1.0",
+    "axios": "^0.27.2",
+    "@glidejs/glide": "^3.6.0",
+    "handlebars": "^4.7.7",
+    "tui-pagination": "^3.4.1",
     "notiflix": "^3.2.5"
+
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",

@@ -5,11 +5,11 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
 const refs = {
     galleryRef: document.querySelector('.gallery'),
+
     closeBtn: document.querySelector('[modal-close-btn]'),
     backdrop: document.querySelector('.backdrop'),
     modalContainer: document.querySelector('.modal-container')
 }
-
 refs.galleryRef.addEventListener('click', onGalleryClick)
 
 
