@@ -47,17 +47,16 @@ body {
 
   @media screen and (min-width: $mobile) {
     width: $mobile;
-    padding: 20px;
+    padding: 20px 20px 40px 20px;
   }
 
   @media screen and (min-width: $tablet) {
     width: $tablet;
-    padding: 32px;
+    padding: 40px 32px 60px 32px;
   }
 
   @media screen and (min-width: $desktop) {
     width: $desktop;
-    padding: 32px;
   }
 }
 
