@@ -1,6 +1,6 @@
 import FilmAPIService from './feach/FilmAPIService';
 import moviesMurkup from '../templates/movi-card.hbs';
-import remakeGenres from './remake-genres-ids';
+import remakeGenres from './feach/remake-genres-ids';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const filmAPIService = new FilmAPIService();
 
