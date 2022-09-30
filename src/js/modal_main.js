@@ -11,7 +11,7 @@ const refs = {
 }
 console.log(refs.galleryRef)
 console.log(refs.modal)
-refs.closeBtn.addEventListener('click', removeBtn)
+refs.closeBtn.addEventListener('click',removeBtn)
 
 function removeBtn () {
     refs.modal.classList.add ('is-hidden');
