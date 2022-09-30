@@ -6,11 +6,11 @@ const refs = {
   searchForm: document.getElementById('search-form'),
   loader: document.getElementById('preloader'),
 };
-window.addEventListener('load', onLoader)
+window.addEventListener('load', onLoader);
 function onLoader() {
   setTimeout(() => {
     refs.loader.style.display = 'none';
- },500)
+  }, 500);
 }
 refs.searchForm.addEventListener('submit', searchMovies);
 
@@ -58,7 +58,10 @@ function createGalleryMarkup(res) {
             <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" class="gallery__img">
 
            <h2 class="gallery__title">${title}</h2>
-            <div class ="discription"><p class="gallery__discription">${release_date.slice(0,4)}</p>
+            <div class ="discription"><p class="gallery__discription">${release_date.slice(
+              0,
+              4
+            )}</p>
             </div>
         </a>
     </li>`
