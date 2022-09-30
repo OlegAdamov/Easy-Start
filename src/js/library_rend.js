@@ -3,6 +3,8 @@ const gallery = document.querySelector('.gallery');
 const sliderWrapper = document.querySelector('.slider-wrapper');
 const watchedBtn = document.querySelector('#btn_watched');
 const queueBtn = document.querySelector('#btn_queue');
+const homeBtn = document.querySelector('#ref_home');
+const libraryBtn = document.querySelector('#ref_my-library');
 
 const localStorageWatched = JSON.parse(
   localStorage.getItem('watched-films-list')
@@ -19,6 +21,16 @@ queueBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   createLibraryCard(localStorageQueue);
+});
+
+homeBtn.addEventListener('click', () => {
+  location.reload();
+});
+
+libraryBtn.addEventListener('click', () => {
+  gallery.innerHTML = null;
+  sliderWrapper.innerHTML = null;
+  createLibraryCard(localStorageWatched);
 });
 
 function createLibraryCard(movies) {
