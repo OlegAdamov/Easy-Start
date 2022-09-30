@@ -1,0 +1,60 @@
+.btn_library {
+  @media screen and (max-width: 767px) {
+    width: 130px;
+    height: 44px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 152px;
+    height: 44px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 147px;
+    height: 42px;
+  }
+
+  background: transparent;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  flex-shrink: 0;
+}
+
+.btn_library:not(:last-child) {
+  @media screen and (max-width: 767px) {
+    margin-right: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    margin-right: 32px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    margin-right: 16px;
+  }
+}
+
+.btn_library:active,
+:focus {
+  background: #ff6b01;
+  border: 1px solid transparent;
+}
+
+.buttons-library {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons_pdg {
+  padding-bottom: 34px;
+}

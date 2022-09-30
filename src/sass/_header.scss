@@ -1,35 +1,44 @@
-.heder_bgr{
-    background-image: url(../images/bgr-heder-mob.jpg);
-    @media screen and (min-width: 768px) {
-        background-image: url(../images/bgr-heder-tablet.jpg);
+.header_bgr {
+    padding: 15px;
+    background-image: url(../images/bgr-header-mob.jpg);
+
+    @media screen and (min-width: $tablet) {
+        background-image: url(../images/bgr-header-tablet.jpg);
     }
-    @media screen and (min-width: 1280px) {
-        background-image: url(../images/bgr-heder-desk.jpg);
+
+    @media screen and (min-width: $desktop) {
+        background-image: url(../images/bgr-header-desk.jpg);
+        width: $desktop;
+        padding: 32px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
 .none {
     display: none;
-        @media screen and (min-width: 768px){
+        @media screen and (min-width: $tablet){
             display:inline-block;
         }
 }
 
-.heder_nav {
+.header_nav {
     display: flex;
     align-items: center;
     padding-bottom: 40px;
-    @media screen and (min-width: 768px){
+    @media screen and (min-width: $tablet){
         justify-content: center;
     }
 }
 
-.heder_icon {
-    @media screen and (min-width: 768px){
+.header_icon {
+        @media screen and (min-width: $tablet){
         margin-right: 8px;
     }
 }
-.heder_href {
+
+
+.header_href {
     margin-left: auto;
     text-decoration: none;
     color: #ffffff;
@@ -39,7 +48,12 @@
     &:first-child{
         margin-left: 0px;
     }
-    @media screen and (min-width: 768px) {
+    &:hover,
+    :focus  {
+        color: red;
+        
+    }
+    @media screen and (min-width: $tablet) {
         &:first-child{
             font-weight: 500;
             font-size: 30px;
@@ -48,22 +62,26 @@
     }
 }
 
-.heder_href:last-child{
+.hover:hover .header_icon .hover:focus .header_icon {
+    fill: red;
+}
+
+.header_href:last-child{
     margin-left: 40px;
 }
 /////////////////Active page//////////////////////////////
-.curent {
+.current {
     float: left;
     display: block;
     text-align: center;
     border-bottom: 3px solid transparent;
 }
 
-.curent:hover{
+.current:hover{
     border-bottom: 3px solid red;
 }
 
-.curent {
+.current {
     border-bottom: 3px solid red;
 }
 
@@ -77,7 +95,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
-    @media screen and (min-width: 768px){
+    @media screen and (min-width: $tablet){
         width: 400px;
     }
 }

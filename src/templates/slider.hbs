@@ -1,0 +1,10 @@
+{{#each this}}
+<li class="slider-card" data-action='{{id}}'>
+    <div class="thumb">
+        <img class="slider-image" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}} {{name}}"
+            data-id="{{id}}"
+            onerror="this.onerror=null;this.src='https://ik.imagekit.io/dqs5dhaf3/onerror_xia2bwu8M.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1664537019915';" />
+        <span class="rating-slider">{{vote_average}}</span>
+    </div>
+</li>
+{{/each}}
