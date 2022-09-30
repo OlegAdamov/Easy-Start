@@ -9,7 +9,7 @@ const refs = {
 window.addEventListener('load', onLoader)
 function onLoader() {
   setTimeout(() => {
-    refs.loader.style.display = 'none';
+    refs.loader.classList.add('visually-hidden') 
  },500)
 }
 refs.searchForm.addEventListener('submit', searchMovies);
@@ -54,13 +54,12 @@ function createGalleryMarkup(res) {
         title,
         release_date,
       }) => ` <li id ="${id}" class="gallery__item">
-        <a href="/" class="gallery__link">
             <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" class="gallery__img">
 
            <h2 class="gallery__title">${title}</h2>
             <div class ="discription"><p class="gallery__discription">${release_date.slice(0,4)}</p>
             </div>
-        </a>
+        
     </li>`
     )
     .join(' ');
