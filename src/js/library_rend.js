@@ -1,4 +1,6 @@
+import moviesMurkup from '../templates/movi-card.hbs';
 const gallery = document.querySelector('.gallery');
+const sliderWrapper = document.querySelector('.slider-wrapper');
 const watchedBtn = document.querySelector('#btn_watched');
 const queueBtn = document.querySelector('#btn_queue');
 
@@ -6,52 +8,23 @@ const localStorageWatched = JSON.parse(
   localStorage.getItem('watched-films-list')
 );
 const localStorageQueue = JSON.parse(localStorage.getItem('queued-films-list'));
+
 watchedBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
-  renderWatchedGalleryMarkup();
+  sliderWrapper.innerHTML = null;
+  createLibraryCard(localStorageWatched);
 });
 
 queueBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
-  renderQueueGalleryMarkup();
+  sliderWrapper.innerHTML = null;
+  createLibraryCard(localStorageQueue);
 });
 
-function renderQueueGalleryMarkup() {
-  gallery.insertAdjacentHTML('beforeend', createQueueMarkup());
-}
-
-function renderWatchedGalleryMarkup() {
-  gallery.insertAdjacentHTML('beforeend', createWatchedMarkup());
-}
-
-function createWatchedMarkup() {
-  let filmsWatchedMarkup = '';
-
-  localStorageWatched.map(({ poster, title }) => {
-    filmsWatchedMarkup += ` <li id ="" class="gallery__item">
-        <a href="/" class="gallery__link">
-            <img src="https://image.tmdb.org/t/p/w500${poster}" alt="" class="gallery__img">
-
-           <h2 class="gallery__title">${title}</h2>
-            <div class ="discription"><p class="gallery__discription">$</p>
-            </div>
-        </a>
-    </li>`;
-  });
-}
-
-function createQueueMarkup() {
-  let filmsWatchedMarkup = '';
-
-  localStorageQueue.map(({ poster, title }) => {
-    filmsWatchedMarkup += ` <li id ="" class="gallery__item">
-        <a href="/" class="gallery__link">
-            <img src="https://image.tmdb.org/t/p/w500${poster}" alt="" class="gallery__img">
-
-           <h2 class="gallery__title">${title}</h2>
-            <div class ="discription"><p class="gallery__discription">$</p>
-            </div>
-        </a>
-    </li>`;
-  });
+function createLibraryCard(movies) {
+  const markup = movies
+    .map(watched_queue => moviesMurkup(watched_queue))
+    .join('');
+  console.log(markup);
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
