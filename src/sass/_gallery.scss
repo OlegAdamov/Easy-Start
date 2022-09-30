@@ -58,7 +58,10 @@
     line-height: 1.2;
   }
 }
-#preloader{
+#preloader {
+  z-index: 100;
+  position: fixed;
+  background: rgba(00, 00, 00, 0.4) url(../images/Settings.gif);
   display: flex;
     align-items: center;
     justify-content: center;
@@ -119,10 +122,27 @@
     transform: translate(0%, 0%) rotate(180deg)
   }
 }
-
+#back-top {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  z-index: 99;
+  font-size: 25px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: rgba(80, 18, 173, 0.8);
+  color: #ddc7ff;
+  padding: 15px;
+  border-radius: 4px;
+  &:hover {
+    background-color: rgba(25, 0, 95, 0.95);
+  }
+}
 @keyframes mvrx {
 
-  0%,
+0%,
   15% {
     transform: translate(0, 0) rotate(0deg)
   }
