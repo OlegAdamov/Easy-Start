@@ -15,10 +15,10 @@
   border-radius: 5px;
   @media screen and (min-width: $tablet) {
     margin: 16;
-    width: calc((100% - 70px) / 2);
+    width: 477px;
   }
   @media screen and (min-width: $desktop) {
-    width: calc((100% - 96px) / 3);
+    width: 309px;
   }
   transition: var(--transition-duration, --transition-timing-function);
   &:hover {
@@ -173,7 +173,7 @@
     height: 100%;
     border-width: 0.8vmin 0.8vmin 0 0;
     border-style: solid;
-    border-color: var(--janre-color);
+    border-color: #FF6B08;
     transition: var(--transition-duration, --transition-timing-function);
     display: block;
     transform-origin: 100% 0;
@@ -188,7 +188,7 @@
     height: 100%;
     border-width: 0 0.8vmin 0 0;
     border-style: solid;
-    border-color: var(--janre-color);
+    border-color: #a04306;
     transform-origin: 85% 0;
     transition: var(--transition-duration, --transition-timing-function);
   }
