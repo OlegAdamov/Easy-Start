@@ -1,10 +1,10 @@
-import FilmAPIService from './feach/FilmAPIService';
-import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.min.css';
+// import FilmAPIService from './feach/FilmAPIService';
+// import Pagination from 'tui-pagination';
+// import 'tui-pagination/dist/tui-pagination.min.css';
 import { createGalleryMarkup } from './gallery';
 import { refs } from './gallery';
 import getPopularMovie from './feach/FilmAPIService';
-const filmsApi = new FilmAPIService();
+// const filmsApi = new FilmAPIService();
 const listRef = document.querySelector('.js-gallery');
 const paginationContainer = document.querySelector('.tui-pagination');
 const searchForm = document.getElementById('search-form');
@@ -15,7 +15,7 @@ const options = {
   page: 1,
 };
 
-const pagination = new Pagination('pagination', options);
+// const pagination = new Pagination('pagination', options);
 
 const page = pagination.getCurrentPage();
 console.log('page', page);
