@@ -1,5 +1,3 @@
-// import { refs } from './gallery';
-
 const refHome = document.querySelector('#ref_home');
 const refMyLibrary = document.querySelector('#ref_my-library');
 const formPdg = document.querySelector('.form_pdg');
@@ -11,7 +9,7 @@ console.log(formPdg);
 
 function onRefMyLibrary(evt) {
   evt.preventDefault();
-  //   refs.gallery.innerHTML = '';
+
   refHome.classList.remove('current');
   refMyLibrary.classList.add('current');
   buttonsPdg.classList.remove('visually-hidden');
