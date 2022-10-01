@@ -15,16 +15,20 @@
   border-radius: 5px;
   @media screen and (min-width: $tablet) {
     margin: 16;
-    width: calc((100% - 10%) / 2);
+    width: calc((100% - 70px) / 2);
   }
   @media screen and (min-width: $desktop) {
-    width: calc((100% - 12%) / 3);
+    width: calc((100% - 100px) / 3);
   }
-  transition: var(--transition-duration, --transition-timing-function);
-  &:hover {
+    transition:  400ms ease-out;
+  &:focus, &:hover{
+    cursor: pointer;
     box-shadow: 0px 10px 25px 3px var(--janre-color);
-    transform: scale(1.02);
   }
+}
+.overflowHidden{
+  overflow: hidden;
+  
 }
 .gallery__link {
   text-decoration: none;
@@ -41,18 +45,12 @@
     height: 574px;
   }
   transition: var(--transition-duration, --transition-timing-function);
+     &:focus, &:hover {
+      transform: scale(1.15);
+    }
+  
 }
-.gallery__item {
-  &:hover .gallery__img {
-    transform: scale(1.05);
-    border-radius: 0 0 20px 20px;
-    margin-bottom: 15px;
-  }
-  &:hover .meta {
-    transform: translate(15px);
-    line-height: 1.4;
-  }
-}
+
 .meta {
   padding: 5px;
   position: relative;
@@ -81,83 +79,6 @@
     line-height: 1.2;
   }
 }
-#preloader {
-  z-index: 100;
-  position: fixed;
-  background: rgba(00, 00, 00, 0.4) url(../images/settings.gif);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  position: fixed;
-  background: rgba(00, 00, 00, 0.4);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  height: 100vh;
-}
-// url(../images/Settings.gif)
-.loader {
-  width: 48px;
-  height: 48px;
-  position: relative;
-  animation: rotate 4s linear infinite;
-}
-
-.loader:before,
-.loader:after {
-  content: '';
-  display: block;
-  border: 24px solid;
-  border-color: transparent transparent #fff #fff;
-  position: absolute;
-  left: 0;
-  top: 0;
-  animation: mvx 1s infinite ease-in;
-}
-
-.loader:before {
-  left: -1px;
-  top: 1px;
-  border-color: #ff3d00 #ff3d00 transparent transparent;
-  animation-name: mvrx;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes mvx {
-  0%,
-  15% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-
-  50% {
-    transform: translate(-50%, 50%) rotate(180deg);
-  }
-
-  100% {
-    transform: translate(0%, 0%) rotate(180deg);
-  }
-}
-@keyframes mvrx {
-  0%,
-  15% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-
-  50% {
-    transform: translate(50%, -50%) rotate(180deg);
-  }
-
-  100% {
-    transform: translate(0%, 0%) rotate(180deg);
-  }
-}
-
 #back-top {
   display: none;
   width: 6vmin;
