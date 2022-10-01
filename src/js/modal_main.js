@@ -1,20 +1,25 @@
-import { createGalleryMarkup } from "./gallery";
+import { createGalleryMarkup } from './gallery';
 import storageApi from './localStorage/storage';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
 const refs = {
-    galleryRef: document.querySelector('.gallery'),
+  galleryRef: document.querySelector('.gallery'),
 
-    closeBtn: document.querySelector('[modal-close-btn]'),
-    backdrop: document.querySelector('.backdrop'),
-    modalContainer: document.querySelector('.modal-container')
-}
-refs.galleryRef.addEventListener('click', onGalleryClick)
+  closeBtn: document.querySelector('.modal-close-btn'),
+  backdrop: document.querySelector('.backdrop'),
+  modalContainer: document.querySelector('.modal-container'),
+};
+refs.galleryRef.addEventListener('click', onGalleryClick);
 
+let title = null;
+let poster = null;
+let date = null;
+let genre = null;
+let vote = null;
 
 function onGalleryClick(e) {
-  e.preventDefault()
+  e.preventDefault();
   const isMovieCard = e.target.closest('.gallery__item');
   if (!isMovieCard) {
     return;
@@ -24,18 +29,18 @@ function onGalleryClick(e) {
       refs.backdrop.classList.add('is-hidden');
     }
   });
-  openModal(isMovieCard.id) 
+  openModal(isMovieCard.id);
 }
 
-
-
-async function fetchDesr (movieId) {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`)
+async function fetchDesr(movieId) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`
+  );
   const descriptionFilm = await response.json();
   return descriptionFilm;
 }
 function openModal(movie) {
-  fetchDesr(movie).then(film=> {
+  fetchDesr(movie).then(film => {
     refs.modalContainer.innerHTML = `
     
     <div class="modal-img">
@@ -60,8 +65,17 @@ function openModal(movie) {
         <p class="about">About</p>
         <p class="about-info">${film.overview}
         </p>
-        </div>`
-  })
+        </div>`;
+    title = film.title;
+    vote = film.vote_average;
+    poster = film.poster_path;
+    const genres = [];
+    film.genres.forEach(el => {
+      genres.push(el.name);
+    });
+    genre = genres.join(', ');
+    date = film.release_date.split('-')[0];
+  });
   refs.backdrop.classList.remove('is-hidden');
 }
 
@@ -70,6 +84,11 @@ window.addEventListener('click', e => {
     refs.backdrop.classList.add('is-hidden');
   }
 });
+
+refs.closeBtn.addEventListener('click', () => {
+  refs.backdrop.classList.add('is-hidden');
+});
+
 const addWatched = document.querySelector('.add-to-watch');
 const addQueued = document.querySelector('.add-to-queue');
 const filmTitle = document.querySelector('.modal-title');
@@ -79,23 +98,13 @@ const filmVote = document.querySelector('#vote');
 const WATCHED_KEY = 'watched-films-list';
 const QUEUED_KEY = 'queued-films-list';
 
-// function checkInStorage(data, key) {
-//   const savedData = storageApi.load(key);
-//   for (const el of savedData) {
-//     if (JSON.stringify(el) === JSON.stringify(data)) {
-//       return true;
-//     }
-//   }
-
-//   return false;
-// }
-
 addWatched.addEventListener('click', () => {
   const tempData = {
-    title: filmTitle.textContent,
-    poster: filmPoster.getAttribute('src'),
-    genre: filmGenre.textContent,
-    vote: filmVote.textContent.split(' / ')[0],
+    title,
+    poster,
+    date,
+    genre,
+    vote,
   };
   if (!storageApi.load(WATCHED_KEY)) {
     storageApi.save(WATCHED_KEY, [tempData]);
@@ -117,10 +126,11 @@ addWatched.addEventListener('click', () => {
 
 addQueued.addEventListener('click', () => {
   const tempData = {
-    title: filmTitle.textContent,
-    poster: filmPoster.getAttribute('src'),
-    genre: filmGenre.textContent,
-    vote: filmVote.textContent.split(' / ')[0],
+    title,
+    poster,
+    date,
+    genre,
+    vote,
   };
   if (!storageApi.load(QUEUED_KEY)) {
     storageApi.save(QUEUED_KEY, [tempData]);
