@@ -1,7 +1,8 @@
 .header_bgr {
+    position: relative;
     padding: 15px;
     background-image: url(../images/bgr-header-mob.jpg);
-
+    background-size:cover;
     @media screen and (min-width: $tablet) {
         background-image: url(../images/bgr-header-tablet.jpg);
     }
@@ -24,17 +25,16 @@
 
 .header_nav {
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    justify-content: center;
     padding-bottom: 40px;
     @media screen and (min-width: $tablet){
-        justify-content: center;
+        
     }
 }
 
 .header_icon {
-        @media screen and (min-width: $tablet){
-        margin-right: 8px;
-    }
+    margin-right: 10px;
 }
 
 
@@ -95,6 +95,9 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
+    @media screen and (min-width: $mobile) {
+            width: 400px;
+        }
     @media screen and (min-width: $tablet){
         width: 400px;
     }
@@ -124,4 +127,5 @@
     float: left;
     background-color: transparent;
     right: 20px;
+        border-bottom: 0.5px solid #fff;
 }
