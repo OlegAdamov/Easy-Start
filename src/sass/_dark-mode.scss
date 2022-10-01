@@ -75,7 +75,7 @@ input:checked+label {
 }
 
 input:checked+label:after {
-    left: calc(100% - 5px);
+    left: calc(100% - 2%);
     transform: translateX(-100%);
 }
 

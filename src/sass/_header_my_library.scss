@@ -4,12 +4,12 @@
     height: 44px;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: $tablet) {
     width: 152px;
     height: 44px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: $desktop) {
     width: 147px;
     height: 42px;
   }
@@ -34,17 +34,16 @@
     margin-right: 20px;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: $tablet) {
     margin-right: 32px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: $desktop) {
     margin-right: 16px;
   }
 }
 
-.btn_library:active,
-:focus {
+.btn_library:focus {
   background: #ff6b01;
   border: 1px solid transparent;
 }

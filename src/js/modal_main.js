@@ -2,31 +2,74 @@ import { createGalleryMarkup } from "./gallery";
 import storageApi from './localStorage/storage';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-
+const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
 const refs = {
     galleryRef: document.querySelector('.gallery'),
+
     closeBtn: document.querySelector('[modal-close-btn]'),
-    modal: document.querySelector('.modal-main'),
-    galleryItem: document.querySelector('.gallery__item')
+    backdrop: document.querySelector('.backdrop'),
+    modalContainer: document.querySelector('.modal-container')
 }
-console.log(refs.galleryRef)
-console.log(refs.modal)
-refs.closeBtn.addEventListener('click',removeBtn)
+refs.galleryRef.addEventListener('click', onGalleryClick)
 
-function removeBtn () {
-    refs.modal.classList.add ('is-hidden');
+
+function onGalleryClick(e) {
+  e.preventDefault()
+  const isMovieCard = e.target.closest('.gallery__item');
+  if (!isMovieCard) {
+    return;
+  }
+  refs.galleryRef.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      refs.backdrop.classList.add('is-hidden');
+    }
+  });
+  openModal(isMovieCard.id) 
 }
 
 
 
+async function fetchDesr (movieId) {
+  const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`)
+  const descriptionFilm = await response.json();
+  return descriptionFilm;
+}
+function openModal(movie) {
+  fetchDesr(movie).then(film=> {
+    refs.modalContainer.innerHTML = `
+    
+    <div class="modal-img">
+    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title} ${film.name}" class="image" />
+  </div>
+  <div class="modal-rest">
+  <h3 class="modal-title">${film.title}</h3>
+      <div class="modal-info">
+        <div class="modal-description">
+          <p class="info-item">Vote / Votes</p>
+          <p class="info-item">Popularity</p>
+          <p class="info-item">Original Title</p>
+          <p class="info-item">Genre</p>
+        </div>
+        <div class="modal-count">
+          <p class="count" id="vote">${film.vote_average}</p>
+          <p class="count">${film.popularity}</p>
+          <p class="count">${film.original_title}</p>
+          <p class="count" id="genre">Western</p>
+        </div>
+        </div>
+        <p class="about">About</p>
+        <p class="about-info">${film.overview}
+        </p>
+        </div>`
+  })
+  refs.backdrop.classList.remove('is-hidden');
+}
 
-// const refs = {
-//   linkEl: document.querySelector('.gallery-link'),
-//   titleEl: document.querySelector('.gallery__title'),
-//   imgEl: document.querySelector('gallery__img'),
-//   ,
-// };
-
+window.addEventListener('click', e => {
+  if (e.target === refs.backdrop) {
+    refs.backdrop.classList.add('is-hidden');
+  }
+});
 const addWatched = document.querySelector('.add-to-watch');
 const addQueued = document.querySelector('.add-to-queue');
 const filmTitle = document.querySelector('.modal-title');

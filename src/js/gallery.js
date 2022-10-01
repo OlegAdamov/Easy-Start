@@ -36,9 +36,13 @@ async function searchMovies(e) {
 }
 
 async function getResponseMovie() {
-  const responsePopularMovie = await filmAPIService.getPopularMovie();
-  const movies = await responsePopularMovie.data.results;
-  createGalleryCard(remakeGenres(movies, filmAPIService.genres));
+  try {
+    const responsePopularMovie = await filmAPIService.getPopularMovie();
+    const movies = await responsePopularMovie.data.results;
+    createGalleryCard(remakeGenres(movies, filmAPIService.genres));
+  } catch (error) {
+    Notify.failure(error.name);
+  }
 }
 
 getResponseMovie();

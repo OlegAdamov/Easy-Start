@@ -1,6 +1,3 @@
-h5 {
-    color: brown;
-}
 
 .is-hidden {
     visibility: hidden;
@@ -13,44 +10,49 @@ h5 {
     top: 0;
     background-color: rgba(0, 0, 0, 0.2);
 }
+.modal-container {
+  display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  @media screen and (min-width: $mobile){
+    display: block;
+  }
+  @media screen and (min-width: $tablet){
+    display: flex;
+  }
+}
+
 .modal-main{
     position: absolute;
     width: 806px;
     height: 558px;
-    display: flex;
     background-color: #FFFFFF;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    padding: 40px 50px 40px 16px;
     @media screen and (min-width: $mobile) {
         width: 280px;
         height: 940px;
-        display: block;
         padding: 48px 20px 40px 20px;
       }
       @media screen and (min-width: $tablet) {
         width: 704px;
         height: 552px;
-        display: flex;
         padding: 0;
+        padding: 40px 72px 40px 36px;
       }
 }
 
 .modal-img {
+    position: relative;
     @media screen and (min-width: $tablet) {
         padding: 40px 16px 40px 12px;
       }
     
 }
 .modal-rest {
-    padding: 40px 12px 16px 40px;
     overflow:hidden;
-    @media screen and (min-width: $mobile) {
-        padding: 20px 0;
-      }
-      @media screen and (min-width: $tablet) {
-        padding: 40px 72px 40px 67px;
-      }
 }
 .image {
     width: 375px;
@@ -154,7 +156,12 @@ flex-shrink: 0;
   }
 }
 .buttons {
+    
     display: flex;
+    justify-content: center;
+    bottom: 40px;
+    left: 325px;
+    position: absolute;
 }
 .add-to-queue {
         width: 136px;

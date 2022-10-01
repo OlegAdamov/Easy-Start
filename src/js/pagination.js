@@ -8,6 +8,7 @@ const filmsApi = new FilmAPIService();
 const paginationContainer = document.querySelector('.tui-pagination');
 const searchForm = document.getElementById('search-form');
 const btnList = document.querySelector('.gallery');
+
 const options = {
   totalItems: 0,
   itemsPerPage: 20,
@@ -28,7 +29,6 @@ filmsApi
   .catch(error => {
     error;
   });
-
 pagination.on('afterMove', getMoreVideo);
 function getMoreVideo(event) {
   const currentPage = event.page;
@@ -45,3 +45,4 @@ function getMoreVideo(event) {
       console.log(error);
     });
 }
+
