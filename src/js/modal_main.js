@@ -6,7 +6,7 @@ const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
 const refs = {
   galleryRef: document.querySelector('.gallery'),
 
-  closeBtn: document.querySelector('[modal-close-btn]'),
+  closeBtn: document.querySelector('.modal-close-btn'),
   backdrop: document.querySelector('.backdrop'),
   modalContainer: document.querySelector('.modal-container'),
 };
@@ -84,6 +84,11 @@ window.addEventListener('click', e => {
     refs.backdrop.classList.add('is-hidden');
   }
 });
+
+refs.closeBtn.addEventListener('click', () => {
+  refs.backdrop.classList.add('is-hidden');
+});
+
 const addWatched = document.querySelector('.add-to-watch');
 const addQueued = document.querySelector('.add-to-queue');
 const filmTitle = document.querySelector('.modal-title');
