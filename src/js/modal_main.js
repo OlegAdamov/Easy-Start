@@ -18,9 +18,11 @@ let date = null;
 let genre = null;
 let vote = null;
 
-function onGalleryClick(e) {
+export function onGalleryClick(e) {
   e.preventDefault();
-  const isMovieCard = e.target.closest('.gallery__item');
+  const isMovieCard =
+    e.target.closest('.gallery__item') || e.target.closest('.slider-card');
+  console.log(isMovieCard, 'isMovieCard');
   if (!isMovieCard) {
     return;
   }
@@ -42,7 +44,7 @@ async function fetchDesr(movieId) {
 function openModal(movie) {
   fetchDesr(movie).then(film => {
     refs.modalContainer.innerHTML = `
-    
+
     <div class="modal-img">
     <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title} ${film.name}" class="image" />
   </div>

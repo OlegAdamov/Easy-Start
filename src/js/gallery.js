@@ -3,6 +3,7 @@ import moviesMurkup from '../templates/movi-card.hbs';
 import remakeGenres from './feach/remake-genres-ids';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const filmAPIService = new FilmAPIService();
+import storageApi from './localStorage/storage';
 
 const refs = {
   gallery: document.querySelector('.gallery'),
@@ -17,7 +18,12 @@ function onLoader() {
 }
 refs.searchForm.addEventListener('submit', searchMovies);
 
-filmAPIService.getGenres();
+// TODO: await response before rendering the page
+(async () => {
+  console.log('RENDER');
+  const genres = await filmAPIService.getGenres();
+  storageApi.save('genres', genres);
+})();
 
 async function searchMovies(e) {
   e.preventDefault();
@@ -29,23 +35,23 @@ async function searchMovies(e) {
   try {
     const responsePopularMovie = await filmAPIService.getMovieByQuery();
     const movies = await responsePopularMovie.data.results;
-    createGalleryMarkupByQuery(remakeGenres(movies, filmAPIService.genres));
+    createGalleryMarkupByQuery(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
     Notify.failure(error.name);
   }
 }
 
-async function getResponseMovie() {
+export async function getResponseMovie() {
   try {
     const responsePopularMovie = await filmAPIService.getPopularMovie();
     const movies = await responsePopularMovie.data.results;
-    createGalleryCard(remakeGenres(movies, filmAPIService.genres));
+    createGalleryCard(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
     Notify.failure(error.name);
   }
 }
 
-getResponseMovie();
+(async () => await getResponseMovie())();
 
 function createGalleryCard(res) {
   const markup = res.map(movie => moviesMurkup(movie)).join('');
