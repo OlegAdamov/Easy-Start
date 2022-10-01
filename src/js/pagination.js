@@ -1,14 +1,13 @@
 import FilmAPIService from './feach/FilmAPIService';
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.min.css';
-import { createGalleryMarkup } from './gallery';
-import { refs } from './gallery';
-import 'tui-pagination/dist/tui-pagination.min.css';
+import 'tui-pagination/dist/tui-pagination.css';
+import moviesMurkup from '../templates/movi-card.hbs';
+import remakeGenres from './feach/remake-genres-ids';
 
 const filmsApi = new FilmAPIService();
-// const listRef = document.querySelector('.js-gallery');
 const paginationContainer = document.querySelector('.tui-pagination');
 const searchForm = document.getElementById('search-form');
+const btnList = document.querySelector('.gallery');
 const options = {
   totalItems: 0,
   itemsPerPage: 20,
@@ -19,31 +18,30 @@ const options = {
 const pagination = new Pagination('pagination', options);
 
 const page = pagination.getCurrentPage();
-console.log('page', page);
 filmsApi
-  .getPopularMovie(page)
+  .getPopularMovie()
   .then(res => {
+    const markup = moviesMurkup(res);
     pagination.reset(res.data.total_results);
-    // paginationContainer.classList.remove('is-hidden');
-    // const markup = getPopularMovie(results);
-    // listRef.innerHTML = markup;
-
-    // let selected = document.querySelector('.tui-is-selected');
-    // console.log(selected.innerHTML);
+    paginationContainer.classList.remove('is-hidden');
   })
   .catch(error => {
     error;
   });
-pagination.on('afterMove', event => {
+
+pagination.on('afterMove', getMoreVideo);
+function getMoreVideo(event) {
   const currentPage = event.page;
-  console.log(currentPage);
-});
-pagination.on('beforeMove', event => {
-  const currentPage = event.page;
-  //   pagination.reset(currentPage);
-  pagination.movePageTo(10);
-});
-filmsApi.getPopularMovie(currentPage).then(({ results }) => {
-  const markup = getPopularMovie(results);
-  listRef.innerHTML = markup;
-});
+  filmsApi.page = currentPage;
+  filmsApi
+    .getPopularMovie()
+    .then(results => {
+      const markup = results.data.results
+        .map(movie => moviesMurkup(movie))
+        .join('');
+      btnList.innerHTML = markup;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
