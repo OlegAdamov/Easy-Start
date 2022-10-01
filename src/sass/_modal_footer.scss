@@ -1,3 +1,29 @@
-h2 {
-    color: pink
+.footer__modal {
+    background-color: var(--title-color);
+
+//     &--name {
+// @include font($mb, $fw, $fs, $lh, $ls, $tt, $ta, $col, $bcol);    
+// }
+
+    &--list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -15px;
+}
+    &--list {
+        margin: 15px;
+        border: 1px solid #000000;
+        border-radius: 30%;
+    }
+}
+
+.hero-our-team {
+    text-align: center;
+    margin-top: -30px;
+    margin-left: -30px;
+
+    @media screen and (min-width: $tablet) {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }

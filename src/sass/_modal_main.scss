@@ -1,42 +1,70 @@
-h5 {
-    color: brown;
-}
 
 .is-hidden {
     visibility: hidden;
 }
 
 .backdrop {
-    // position: fixed;
+    position: fixed;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
     top: 0;
-
-
+    background-color: rgba(0, 0, 0, 0.2);
 }
+.modal-container {
+  display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  @media screen and (min-width: $mobile){
+    display: block;
+  }
+  @media screen and (min-width: $tablet){
+    display: flex;
+  }
+}
+
 .modal-main{
-    // width: 95%;
-    // height: 609px;
-    // position: absolute;
-    // padding: 40px;
-    // top: 50%;
-    // left: 50%;
+    position: absolute;
     width: 806px;
     height: 558px;
-    display: flex;
-
+    background-color: #FFFFFF;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px 50px 40px 16px;
+    @media screen and (min-width: $mobile) {
+        width: 280px;
+        height: 940px;
+        padding: 48px 20px 40px 20px;
+      }
+      @media screen and (min-width: $tablet) {
+        width: 704px;
+        height: 552px;
+        padding: 0;
+        padding: 40px 72px 40px 36px;
+      }
 }
 
 .modal-img {
-    padding: 40px 16px 40px 12px;
+    position: relative;
+    @media screen and (min-width: $tablet) {
+        padding: 40px 16px 40px 12px;
+      }
+    
 }
 .modal-rest {
-    padding: 40px 12px 16px 40px;
+    overflow:hidden;
 }
 .image {
     width: 375px;
     height: 478px;
+    @media screen and (min-width: $mobile) {
+        width: 240px;
+        height: 357px;
+      }
+      @media screen and (min-width: $tablet) {
+        width: 264px;
+        height: 374px;
+      }
 }
 
 .modal-title {
@@ -47,6 +75,15 @@ font-size: 30px;
 line-height: 1.16;
 color: #000000;
 margin-bottom: 20px;
+@media screen and (min-width: $mobile) {
+    font-size: 20px;
+    line-height: 1.15;
+   
+  }
+  @media screen and (min-width: $tablet) {
+    font-size: 20px;
+    line-height: 1.15;
+  }
 }
 .modal-info {
     display: flex;
@@ -54,6 +91,9 @@ margin-bottom: 20px;
 }
 .modal-description {
     margin-right: 83px;
+    @media screen and (min-width: $mobile) {
+        margin-right: 39px;
+    }
 }
 .info-item{
 
@@ -108,9 +148,20 @@ text-transform: uppercase;
 color: #FFFFFF;
 margin-right: 15px;
 flex-shrink: 0;
+@media screen and (min-width: $mobile) {
+    width: 110px;  
+  }
+  @media screen and (min-width: $tablet) {
+    width: 125px;
+  }
 }
 .buttons {
+    
     display: flex;
+    justify-content: center;
+    bottom: 40px;
+    left: 325px;
+    position: absolute;
 }
 .add-to-queue {
         width: 136px;
@@ -128,6 +179,12 @@ flex-shrink: 0;
         color: #000000;
         border: 1px solid #000000;
         flex-shrink: 0;
+        @media screen and (min-width: $mobile) {
+            width: 110px;  
+          }
+          @media screen and (min-width: $tablet) {
+            width: 125px;
+          }
 }
 
 .modal-close-btn {
@@ -143,4 +200,5 @@ flex-shrink: 0;
     justify-content: center; 
     border: none;
     cursor: pointer;
+
 }   

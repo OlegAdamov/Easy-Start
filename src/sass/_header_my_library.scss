@@ -1,6 +1,19 @@
 .btn_library {
-  width: 136px;
-  height: 44px;
+  @media screen and (max-width: 767px) {
+    width: 130px;
+    height: 44px;
+  }
+
+  @media screen and (min-width: $tablet) {
+    width: 152px;
+    height: 44px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 147px;
+    height: 42px;
+  }
+
   background: transparent;
   border-radius: 5px;
   font-weight: 500;
@@ -12,36 +25,25 @@
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
-  margin-right: 15px;
   border: 1px solid #ffffff;
   flex-shrink: 0;
 }
 
-.btn_btn_library:active,
-:focus {
-  background: #ff6b01;
-  border: 1px solid transparent;
+.btn_library:not(:last-child) {
+  @media screen and (max-width: 767px) {
+    margin-right: 20px;
+  }
+
+  @media screen and (min-width: $tablet) {
+    margin-right: 32px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    margin-right: 16px;
+  }
 }
 
-.btn_queue {
-  width: 136px;
-  height: 44px;
-  background: transparent;
-  border-radius: 5px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  text-transform: uppercase;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-  flex-shrink: 0;
-}
-.btn_queue:active,
-:focus {
+.btn_library:focus {
   background: #ff6b01;
   border: 1px solid transparent;
 }
@@ -50,35 +52,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  //   margin-right: 50px;
 }
 
-// .client__item {
-//   @media screen and (max-width: 767px) {
-//     width: calc(100% / 2 - 30px);
-//     margin-left: 30px;
-//     margin-top: 30px;
-//   }
-
-//   @media screen and (min-width: 768px) {
-//     width: calc(100% / 3 - 30px);
-//     margin-left: 30px;
-//     margin-top: 30px;
-//   }
-
-//   @media screen and (min-width: 1200px) {
-//     // display: flex;
-//     // flex-basis: culc((100% - 120px) / 4);
-//     width: calc(100% / 6 - 30px);
-//     margin-left: 30px;
-//     // margin-bottom: 30px;
-
-//     // &:not(:last-child) {
-//     //   margin-right: 30px;
-//     // }
-//   }
-// }
-
-// .client__item + .client__item {
-//   margin-left: 30px;
-// }
+.buttons_pdg {
+  padding-bottom: 34px;
+}

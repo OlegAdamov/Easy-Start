@@ -1,4 +1,7 @@
 import FilmAPIService from './feach/FilmAPIService';
+import moviesMurkup from '../templates/movi-card.hbs';
+import remakeGenres from './feach/remake-genres-ids';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const filmAPIService = new FilmAPIService();
 
 const refs = {
@@ -6,13 +9,15 @@ const refs = {
   searchForm: document.getElementById('search-form'),
   loader: document.getElementById('preloader'),
 };
-window.addEventListener('load', onLoader)
+window.addEventListener('load', onLoader);
 function onLoader() {
   setTimeout(() => {
     refs.loader.style.display = 'none';
- },500)
+  }, 500);
 }
 refs.searchForm.addEventListener('submit', searchMovies);
+
+filmAPIService.getGenres();
 
 async function searchMovies(e) {
   e.preventDefault();
@@ -21,47 +26,33 @@ async function searchMovies(e) {
     Notify.failure('Please enter a search word!');
     return;
   }
-  const responsePopularMovie = await filmAPIService.getMovieByQuery();
-  const movies = await responsePopularMovie.data.results;
-  renderGalleryMarkupByQuery(movies);
+  try {
+    const responsePopularMovie = await filmAPIService.getMovieByQuery();
+    const movies = await responsePopularMovie.data.results;
+    createGalleryMarkupByQuery(remakeGenres(movies, filmAPIService.genres));
+  } catch (error) {
+    Notify.failure(error.name);
+  }
 }
 
 async function getResponseMovie() {
-  const responsePopularMovie = await filmAPIService.getPopularMovie();
-  const responseGenres = await filmAPIService.getGenres();
-  const movies = await responsePopularMovie.data.results;
-  const genres = await responseGenres.data.genres;
-  const genre = genres.map(genre => filmAPIService.genres.push(genre));
-  renderGalleryMarkup(movies);
+  try {
+    const responsePopularMovie = await filmAPIService.getPopularMovie();
+    const movies = await responsePopularMovie.data.results;
+    createGalleryCard(remakeGenres(movies, filmAPIService.genres));
+  } catch (error) {
+    Notify.failure(error.name);
+  }
 }
+
 getResponseMovie();
 
-function renderGalleryMarkup(res) {
-  const markup = createGalleryMarkup(res);
+function createGalleryCard(res) {
+  const markup = res.map(movie => moviesMurkup(movie)).join('');
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
 
-function renderGalleryMarkupByQuery(movies) {
+function createGalleryMarkupByQuery(movies) {
   const markup = createGalleryMarkup(movies);
   refs.gallery.innerHTML = markup;
-}
-function createGalleryMarkup(res) {
-  return res
-    .map(
-      ({
-        id,
-        poster_path,
-        title,
-        release_date,
-      }) => ` <li id ="${id}" class="gallery__item">
-        <a href="/" class="gallery__link">
-            <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" class="gallery__img">
-
-           <h2 class="gallery__title">${title}</h2>
-            <div class ="discription"><p class="gallery__discription">${release_date.slice(0,4)}</p>
-            </div>
-        </a>
-    </li>`
-    )
-    .join(' ');
 }
