@@ -3,13 +3,11 @@ const gallery = document.querySelector('.gallery');
 const sliderWrapper = document.querySelector('.slider-wrapper');
 const watchedBtn = document.querySelector('#btn_watched');
 const queueBtn = document.querySelector('#btn_queue');
-const homeBtn = document.querySelector('#ref_home');
-const libraryBtn = document.querySelector('#ref_my-library');
+const homeBtn = document.querySelector('#activ-homeJs');
+const libraryBtn = document.querySelector('#activ-libraryJs');
 
-const localStorageWatched = JSON.parse(
-  localStorage.getItem('watched-films-list')
-);
-const localStorageQueue = JSON.parse(localStorage.getItem('queued-films-list'));
+const localStorageWatched = localStorage.getItem('watched-films-list');
+const localStorageQueue = localStorage.getItem('queued-films-list');
 
 watchedBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
