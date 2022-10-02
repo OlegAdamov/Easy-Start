@@ -2,11 +2,15 @@ import FilmAPIService from './feach/FilmAPIService';
 import moviesMurkup from '../templates/movi-card.hbs';
 import remakeGenres from './feach/remake-genres-ids';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-const filmAPIService = new FilmAPIService();
 import storageApi from './localStorage/storage';
+import { pagination } from './pagination';
+import Pagination from 'tui-pagination';
 
+const filmAPIService = new FilmAPIService();
 const refs = {
   gallery: document.querySelector('.gallery'),
+  watched: document.querySelector('.watched'),
+  queued: document.querySelector('.queued'),
   searchForm: document.getElementById('search-form'),
   loader: document.getElementById('preloader'),
   throwError: document.querySelector('.error-output'),
@@ -16,7 +20,7 @@ function onLoader() {
   setTimeout(() => {
     refs.loader.style.display = 'none';
   }, 500);
-}
+};
 refs.searchForm.addEventListener('submit', searchMovies);
 
 // TODO: await response before rendering the page
@@ -32,47 +36,67 @@ async function searchMovies(e) {
     throwError();
     window.setTimeout(removeError, 2500);
     return;
-  }
+  };
   try {
     const responsePopularMovie = await filmAPIService.getMovieByQuery();
+    pagination.reset(responsePopularMovie.data.total_results);
     const movies = await responsePopularMovie.data.results;
     if (movies.length === 0) {
       throwError();
       window.setTimeout(removeError, 2500);
-      return;
     }
     createGalleryMarkupByQuery(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
     console.log(error.name);
-    refs.throwError.textContent = `${error.name}`;
-  }
-}
+  };
+};
 
-export async function getResponseMovie() {
+export async function getResponseMovie(event) {
   try {
-    const responsePopularMovie = await filmAPIService.getPopularMovie();
+    let responsePopularMovie = {};
+    filmAPIService.page = event?.page || 1;
+    if (filmAPIService.query !== '') {
+      responsePopularMovie = await filmAPIService.getMovieByQuery();
+    } else {
+      responsePopularMovie = await filmAPIService.getPopularMovie();
+    }
     const movies = await responsePopularMovie.data.results;
+    if (
+      responsePopularMovie.data.total_results !== pagination._options.totalItems
+    ) {
+      pagination.reset(responsePopularMovie.data.total_results);
+    }
     createGalleryMarkup(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
+    console.log(error);
     Notify.failure(error.name);
   }
-}
+};
 
 (async () => await getResponseMovie())();
 
 function createGalleryMarkup(res) {
   const markup = res.map(movie => moviesMurkup(movie)).join('');
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
-}
+  refs.queued.innerHTML = null;
+  refs.watched.innerHTML = null;
+  refs.gallery.innerHTML = markup;
+  pagination._offByEventName('afterMove', 'getNextPage');
+  pagination.on('afterMove', getResponseMovie);
+};
 
 function createGalleryMarkupByQuery(res) {
   const markup = res.map(movie => moviesMurkup(movie)).join('');
+  refs.queued.innerHTML = null;
+  refs.watched.innerHTML = null;
+
   refs.gallery.innerHTML = markup;
-}
+  pagination._offByEventName('afterMove', 'getNextPage');
+  pagination.on('afterMove', getResponseMovie);
+};
 function throwError() {
   refs.throwError.textContent =
-    'Search result not successful. Enter the correct movie name and';
-}
+    'Search result not successful. Enter the correct movie name and try again';
+};
 function removeError() {
   refs.throwError.textContent = '';
-}
+};
