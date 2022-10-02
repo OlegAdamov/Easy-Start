@@ -27,12 +27,15 @@ export function onGalleryClick(e) {
   if (!isMovieCard) {
     return;
   }
+  openModal(isMovieCard.id);
   refs.galleryRef.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       refs.backdrop.classList.add('is-hidden');
+      document.body.classList.remove('no-scroll');
     }
+    return isMovieCard;
   });
-  openModal(isMovieCard.id);
+  
   // checkWatchedAndQueued();
 }
 
@@ -112,16 +115,19 @@ function openModal(movie) {
   });
 
   refs.backdrop.classList.remove('is-hidden');
+  document.body.classList.add('no-scroll');
 }
 
 window.addEventListener('click', e => {
   if (e.target === refs.backdrop) {
     refs.backdrop.classList.add('is-hidden');
+    document.body.classList.remove('no-scroll');
   }
 });
 
 refs.closeBtn.addEventListener('click', () => {
   refs.backdrop.classList.add('is-hidden');
+  document.body.classList.remove('no-scroll');
 });
 
 const addWatched = document.querySelector('.add-to-watch');

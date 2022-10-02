@@ -53,6 +53,11 @@
 }
 .modal-rest {
     overflow:hidden;
+    padding: 0;
+    @media screen and (min-width: $tablet) {
+      padding-top: 35px;
+      padding-left: 50px;
+    }
 }
 .image {
     width: 375px;
@@ -162,6 +167,12 @@ flex-shrink: 0;
     bottom: 40px;
     left: 325px;
     position: absolute;
+    @media screen and (min-width: $mobile) {
+      left: 20px;
+    }
+    @media screen and (min-width: $tablet) {
+      left: 375px;
+    }
 }
 .add-to-queue {
         width: 136px;
@@ -201,4 +212,8 @@ flex-shrink: 0;
     border: none;
     cursor: pointer;
 
-}   
+}
+
+.no-scroll {
+  overflow: hidden;
+}
