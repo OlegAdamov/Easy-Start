@@ -80,7 +80,7 @@ function openModal(movie) {
     });
     genresName = genres.join(', ');
     release_date = film.release_date.split('-')[0];
-    movieData = { ...film, genresName, release_date }
+    movieData = { ...film, genresName, release_date };
   });
 
   refs.backdrop.classList.remove('is-hidden');
@@ -106,7 +106,6 @@ const WATCHED_KEY = 'watched-films-list';
 const QUEUED_KEY = 'queued-films-list';
 
 addWatched.addEventListener('click', () => {
-
   if (!storageApi.load(WATCHED_KEY)) {
     storageApi.save(WATCHED_KEY, [movieData]);
     Notify.info('Added to Watched');
@@ -127,7 +126,6 @@ addWatched.addEventListener('click', () => {
 });
 
 addQueued.addEventListener('click', () => {
-
   if (!storageApi.load(QUEUED_KEY)) {
     storageApi.save(QUEUED_KEY, [movieData]);
     Notify.info('Added to Queue');

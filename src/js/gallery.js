@@ -45,12 +45,14 @@ async function searchMovies(e) {
 }
 
 export async function getResponseMovie(event) {
-console.log()
+  console.log();
   try {
     filmAPIService.page = event?.page || 1;
     const responsePopularMovie = await filmAPIService.getPopularMovie();
     const movies = await responsePopularMovie.data.results;
-    if (responsePopularMovie.data.total_results !== pagination._options.totalItems) {
+    if (
+      responsePopularMovie.data.total_results !== pagination._options.totalItems
+    ) {
       pagination.reset(responsePopularMovie.data.total_results);
     }
     createGalleryCard(remakeGenres(movies, storageApi.load('genres')));
@@ -67,8 +69,8 @@ function createGalleryCard(res) {
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
   refs.gallery.innerHTML = markup;
-  pagination._offByEventName('afterMove', 'getNextPage')
-pagination.on('afterMove', getResponseMovie);
+  pagination._offByEventName('afterMove', 'getNextPage');
+  pagination.on('afterMove', getResponseMovie);
 }
 
 function createGalleryMarkupByQuery(movies) {
@@ -76,7 +78,6 @@ function createGalleryMarkupByQuery(movies) {
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
   refs.gallery.innerHTML = markup;
-  pagination._offByEventName('afterMove', 'getNextPage')
-pagination.on('afterMove', getResponseMovie); 
+  pagination._offByEventName('afterMove', 'getNextPage');
+  pagination.on('afterMove', getResponseMovie);
 }
-

@@ -23,8 +23,8 @@ const page = pagination.getCurrentPage();
 //   .getPopularMovie()
 //   .then(res => {
 //     const markup = moviesMurkup(res);
-    // pagination.reset(res.data.total_results);
-    // paginationContainer.classList.remove('is-hidden');
+// pagination.reset(res.data.total_results);
+// paginationContainer.classList.remove('is-hidden');
 //   })
 //   .catch(error => {
 //     error;
