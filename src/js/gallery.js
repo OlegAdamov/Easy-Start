@@ -6,6 +6,8 @@ const filmAPIService = new FilmAPIService();
 
 const refs = {
   gallery: document.querySelector('.gallery'),
+  watched: document.querySelector('.watched'),
+  queued: document.querySelector('.queued'),
   searchForm: document.getElementById('search-form'),
   loader: document.getElementById('preloader'),
 };
@@ -54,5 +56,7 @@ function createGalleryCard(res) {
 
 function createGalleryMarkupByQuery(movies) {
   const markup = createGalleryMarkup(movies);
+  refs.queued.innerHTML = null;
+  refs.watched.innerHTML = null;
   refs.gallery.innerHTML = markup;
 }
