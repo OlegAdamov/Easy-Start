@@ -1,4 +1,6 @@
-.gallery {
+.gallery,
+.watched,
+.queued {
   list-style: none;
   @media screen and (min-width: $tablet) {
     display: flex;

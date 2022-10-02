@@ -2,9 +2,10 @@ import FilmAPIService from './feach/FilmAPIService';
 import moviesMurkup from '../templates/movi-card.hbs';
 import remakeGenres from './feach/remake-genres-ids';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-const filmAPIService = new FilmAPIService();
 import storageApi from './localStorage/storage';
+import { pagination } from './pagination';
 
+const filmAPIService = new FilmAPIService();
 const refs = {
   gallery: document.querySelector('.gallery'),
   watched: document.querySelector('.watched'),
@@ -43,12 +44,18 @@ async function searchMovies(e) {
   }
 }
 
-export async function getResponseMovie() {
+export async function getResponseMovie(event) {
+console.log()
   try {
+    filmAPIService.page = event?.page || 1;
     const responsePopularMovie = await filmAPIService.getPopularMovie();
     const movies = await responsePopularMovie.data.results;
+    if (responsePopularMovie.data.total_results !== pagination._options.totalItems) {
+      pagination.reset(responsePopularMovie.data.total_results);
+    }
     createGalleryCard(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
+    console.log(error);
     Notify.failure(error.name);
   }
 }
@@ -57,7 +64,11 @@ export async function getResponseMovie() {
 
 function createGalleryCard(res) {
   const markup = res.map(movie => moviesMurkup(movie)).join('');
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
+  refs.queued.innerHTML = null;
+  refs.watched.innerHTML = null;
+  refs.gallery.innerHTML = markup;
+  pagination._offByEventName('afterMove', 'getNextPage')
+pagination.on('afterMove', getResponseMovie);
 }
 
 function createGalleryMarkupByQuery(movies) {
@@ -65,4 +76,7 @@ function createGalleryMarkupByQuery(movies) {
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
   refs.gallery.innerHTML = markup;
+  pagination._offByEventName('afterMove', 'getNextPage')
+pagination.on('afterMove', getResponseMovie); 
 }
+

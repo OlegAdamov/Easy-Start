@@ -1,4 +1,5 @@
 import moviesMurkup from '../templates/movi-card.hbs';
+import { pagination } from './pagination';
 
 const watched = document.querySelector('.watched');
 const queued = document.querySelector('.queued');
@@ -12,18 +13,20 @@ const libraryBtn = document.querySelector('#activ-libraryJs');
 
 const localStorageWatched = () => JSON.parse(localStorage.getItem('watched-films-list'));
 const localStorageQueue = () => JSON.parse(localStorage.getItem('queued-films-list'));
-
+const isWatchList = () => document.querySelector('.watched') !== null;
 
 watchedBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
+  pagination.reset(localStorageWatched().length);
   createLibraryCard(localStorageWatched(), true);
 });
 
 queueBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
-  createLibraryCard(localStorageQueue(), false);
+  pagination.reset(localStorageQueue().length);
+createLibraryCard(localStorageQueue(), false);
 });
 
 homeBtn.addEventListener('click', () => {
@@ -33,15 +36,16 @@ homeBtn.addEventListener('click', () => {
 libraryBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
+    pagination.reset(localStorageWatched().length);
   createLibraryCard(localStorageWatched());
 });
 
 function createLibraryCard(movies, isWatchList) {
-  console.log(movies)
+  // console.log(movies)
   const markup = movies
     .map(watched_queue => moviesMurkup(watched_queue))
     .join('');
-  console.log(markup);
+  // console.log(markup);
   if (isWatchList) {
     watched.innerHTML = markup;
     queued.innerHTML = null;
@@ -50,6 +54,35 @@ function createLibraryCard(movies, isWatchList) {
     queued.innerHTML = markup;
   }
   gallery.innerHTML = null;
+  pagination._offByEventName('afterMove', 'getResponseMovie');
+  pagination.on('afterMove', getNextPage);
 
+}
+
+const paginateLocalStorage = (array, page_size, page_number) => {
+  return array.slice((page_number - 1) * page_size, page_number * page_size);
+}
+
+
+function getNextPage(event) {
+  try {
+      let currentStorage;
+     if (isWatchList()) {
+       currentStorage = localStorageWatched();
+      } else {
+        currentStorage = localStorageQueue();
+      }
+      const movies = paginateLocalStorage(currentStorage, pagination._options.itemsPerPage, pagination.getCurrentPage());
+      if (currentStorage.length !== pagination._options.totalItems) {
+        console.log('getNextPage ~ pagination.reset', pagination.reset)
+        pagination.reset(currentStorage.length);
+      }
+      console.log('getNextPage ~ pagination', pagination)
+      console.log('getNextPage ~ currentStorage', currentStorage)
+      createLibraryCard(movies, isWatchList());
+  } catch (error) {
+    console.log(error);
+    Notify.failure(error.name);
+  }
 }
 
