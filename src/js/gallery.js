@@ -4,6 +4,8 @@ import remakeGenres from './feach/remake-genres-ids';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import storageApi from './localStorage/storage';
 import { pagination } from './pagination';
+import Pagination from 'tui-pagination';
+
 
 const filmAPIService = new FilmAPIService();
 const refs = {
