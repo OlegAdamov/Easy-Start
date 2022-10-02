@@ -55,8 +55,10 @@
     overflow:hidden;
     padding: 0;
     @media screen and (min-width: $tablet) {
-      padding-top: 35px;
-      padding-left: 50px;
+      padding: 35px 0 0 50px;
+    }
+    @media screen and (min-width: $desktop) {
+      padding: 0;
     }
 }
 .image {
