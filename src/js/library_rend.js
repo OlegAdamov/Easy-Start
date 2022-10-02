@@ -20,14 +20,14 @@ watchedBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   pagination.reset(localStorageWatched().length);
-  createLibraryCard(localStorageWatched(), true);
+  createLibraryCard(paginateLocalStorage(localStorageWatched(), pagination._options.itemsPerPage, 1));
 });
 
 queueBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   pagination.reset(localStorageQueue().length);
-  createLibraryCard(localStorageQueue(), false);
+  createLibraryCard(paginateLocalStorage(localStorageQueue(), pagination._options.itemsPerPage, 1));
 });
 
 homeBtn.addEventListener('click', () => {
@@ -38,16 +38,16 @@ libraryBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   pagination.reset(localStorageWatched().length);
-  createLibraryCard(localStorageWatched());
+  createLibraryCard(paginateLocalStorage(localStorageWatched(), pagination._options.itemsPerPage, 1));
 });
 
-function createLibraryCard(movies, isWatchList) {
+function createLibraryCard(movies) {
   // console.log(movies)
   const markup = movies
     .map(watched_queue => moviesMurkup(watched_queue))
     .join('');
   // console.log(markup);
-  if (isWatchList) {
+  if (isWatchList()) {
     watched.innerHTML = markup;
     queued.innerHTML = null;
   } else {

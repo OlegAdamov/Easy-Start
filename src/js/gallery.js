@@ -34,31 +34,34 @@ async function searchMovies(e) {
   if (filmAPIService.query === '') {
     throwError();
     window.setTimeout(removeError, 2500);
-    return;
+
   }
   try {
     const responsePopularMovie = await filmAPIService.getMovieByQuery();
+    pagination.reset(responsePopularMovie.data.total_results)  
     const movies = await responsePopularMovie.data.results;
     if (movies.length === 0) {
       throwError();
       window.setTimeout(removeError, 2500);
-      return;
+
     }
     createGalleryMarkupByQuery(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
     console.log(error.name);
-    refs.throwError.textContent = `${error.name}`;
   }
 }
 
 export async function getResponseMovie(event) {
-  console.log();
   try {
+    let responsePopularMovie = {};
     filmAPIService.page = event?.page || 1;
-    const responsePopularMovie = await filmAPIService.getPopularMovie();
+  if (filmAPIService.query !== '') {
+      responsePopularMovie = await filmAPIService.getMovieByQuery();
+    } else {
+      responsePopularMovie = await filmAPIService.getPopularMovie();
+    };
     const movies = await responsePopularMovie.data.results;
-
-     if (
+  if (
       responsePopularMovie.data.total_results !== pagination._options.totalItems
     ) {
       pagination.reset(responsePopularMovie.data.total_results);

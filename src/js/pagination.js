@@ -12,7 +12,7 @@ const btnList = document.querySelector('.gallery');
 
 const options = {
   totalItems: 0,
-  itemsPerPage: 20,
+  itemsPerPage: 21,
   visiblePages: 5,
   page: 1,
 };
