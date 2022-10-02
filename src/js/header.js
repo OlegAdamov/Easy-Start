@@ -19,3 +19,9 @@
 // // }
 
 /////////////////////////Active page///////////////////////////
+
+// const { height: searchContainer } = document
+//   .querySelector('.header_nav')
+//   .getBoundingClientRect();
+// document.body.style.paddingTop = `${searchContainer + 10}px`;
+

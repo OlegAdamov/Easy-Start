@@ -1,21 +1,23 @@
 .header_bgr {
   position: relative;
   padding: 15px;
+  height: 230px;
   background-image: url(../images/bgr-header-mob.jpg);
   background-size: cover;
   @media screen and (min-width: $tablet) {
+    height: 219px;
     background-image: url(../images/bgr-header-tablet.jpg);
   }
 
   @media screen and (min-width: $desktop) {
     background-image: url(../images/bgr-header-desk.jpg);
     width: $desktop;
+    height: 216px;
     padding: 32px;
     margin-left: auto;
     margin-right: auto;
   }
 }
-
 .none {
   display: none;
   @media screen and (min-width: $tablet) {
@@ -137,3 +139,21 @@
   line-height: 1.14;
   color: #ff001b;
 }
+
+
+///////////FIXED HEADER///////////////////
+.fixed-header {
+  position: fixed;
+  z-index: 999;
+  left: 50%;
+  top: 0;
+  height: 100px;
+  transform: translate(-50%, 0);
+}
+.fixed-form {
+  position: absolute;
+  top: 36px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
