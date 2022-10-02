@@ -1,34 +1,33 @@
 import axios from 'axios';
-const BASE_UR = 'https://api.themoviedb.org/3/';
-// const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
+import { API_KEY, BASE_URL } from './const';
 export default class FilmAPIService {
   constructor() {
     this.query = '';
     this.page = 1;
-    this.genres = [];
+    this.axiosInstance = axios.create({ baseURL: BASE_URL });
   }
 
   async getPopularMovie() {
-    return await axios.get(
-      `${BASE_UR}trending/movie/week?api_key=ba12bbb2efd4020faab2c5dd14dc19c0&page=${this.page}`
+    return this.axiosInstance.get(
+      `trending/movie/week?api_key=${API_KEY}&page=${this.page}`
     );
   }
   async getDetail(movieId) {
-    return await axios.get(
-      `${BASE_UR}movie/${movieId}?api_key=ba12bbb2efd4020faab2c5dd14dc19c0&language=en-US`
+    return this.axiosInstance.get(
+      `movie/${movieId}?api_key=${API_KEY}&language=en-US`
     );
   }
   async getMovieByQuery() {
-    return await axios.get(
-      `${BASE_UR}search/movie?api_key=ba12bbb2efd4020faab2c5dd14dc19c0&language=en-US&query=${this.query}&page=${this.page}&include_adult=false`
+    return this.axiosInstance.get(
+      `search/movie?api_key=${API_KEY}&language=en-US&query=${this.query}&page=${this.page}&include_adult=false`
     );
   }
   async getGenres() {
-    const response = await axios.get(
-      `${BASE_UR}genre/movie/list?api_key=ba12bbb2efd4020faab2c5dd14dc19c0`
+    const response = await this.axiosInstance.get(
+      `genre/movie/list?api_key=${API_KEY}`
     );
-    const genres = await response.data.genres;
-    this.genres = genres.reduce(
+    const genres = response.data.genres;
+    return genres.reduce(
       (acc, genre) => ({ ...acc, ...{ [genre.id]: genre.name } }),
       {}
     );

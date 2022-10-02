@@ -3,6 +3,7 @@ import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import moviesMurkup from '../templates/movi-card.hbs';
 import remakeGenres from './feach/remake-genres-ids';
+import storageApi from './localStorage/storage';
 
 const filmsApi = new FilmAPIService();
 const paginationContainer = document.querySelector('.tui-pagination');
@@ -29,6 +30,7 @@ filmsApi
   .catch(error => {
     error;
   });
+// TODO: we can bind the function getResponseMovie
 pagination.on('afterMove', getMoreVideo);
 function getMoreVideo(event) {
   const currentPage = event.page;
@@ -36,7 +38,10 @@ function getMoreVideo(event) {
   filmsApi
     .getPopularMovie()
     .then(results => {
-      const markup = results.data.results
+      const markup = remakeGenres(
+        results.data.results,
+        storageApi.load('genres')
+      )
         .map(movie => moviesMurkup(movie))
         .join('');
       btnList.innerHTML = markup;
@@ -44,5 +49,5 @@ function getMoreVideo(event) {
     .catch(error => {
       console.log(error);
     });
+  window.scrollTo(0, 0);
 }
-
