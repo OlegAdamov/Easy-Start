@@ -1,5 +1,7 @@
 .footer__modal {
     background-color: var(--title-color);
+    overflow: scroll;
+    
 
 //     &--name {
 // @include font($mb, $fw, $fs, $lh, $ls, $tt, $ta, $col, $bcol);    
