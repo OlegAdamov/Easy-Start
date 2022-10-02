@@ -13,10 +13,11 @@ const refs = {
 refs.galleryRef.addEventListener('click', onGalleryClick);
 
 let title = null;
-let poster = null;
-let date = null;
-let genre = null;
+let poster_path = null;
+let release_date = null;
+let genresName = null;
 let vote = null;
+let id = null;
 
 export function onGalleryClick(e) {
   e.preventDefault();
@@ -32,7 +33,37 @@ export function onGalleryClick(e) {
     }
   });
   openModal(isMovieCard.id);
+  // checkWatchedAndQueued();
 }
+
+// function checkWatchedAndQueued() {
+//   const tempData = {
+//     title,
+//     poster_path,
+//     release_date,
+//     genresName,
+//     vote,
+//     id,
+//   };
+// console.log(JSON.stringify(tempData));
+// console.log(tempData);
+// const savedDataWatched = storageApi.load(WATCHED_KEY);
+// const savedDataQueued = storageApi.load(QUEUED_KEY);
+
+// console.log(localStorage.getItem('queued-films-list'));
+// console.log(JSON.stringify(tempData));
+
+// for (const el of savedDataWatched) {
+//   if (JSON.stringify(el) === localStorage.getItem('watched-films-list')) {
+//     addWatched.textContent = 'remove from watched';
+//   }
+// }
+// for (const el of savedDataQueued) {
+//   if (JSON.stringify(el) === localStorage.getItem('queued-films-list')) {
+//     addQueued.textContent = 'remove from queued';
+//   }
+// }
+// }
 
 async function fetchDesr(movieId) {
   const response = await fetch(
@@ -41,10 +72,10 @@ async function fetchDesr(movieId) {
   const descriptionFilm = await response.json();
   return descriptionFilm;
 }
+
 function openModal(movie) {
   fetchDesr(movie).then(film => {
     refs.modalContainer.innerHTML = `
-
     <div class="modal-img">
     <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title} ${film.name}" class="image" />
   </div>
@@ -61,23 +92,25 @@ function openModal(movie) {
           <p class="count" id="vote">${film.vote_average}</p>
           <p class="count">${film.popularity}</p>
           <p class="count">${film.original_title}</p>
-          <p class="count" id="genre">Western</p>
+          <p class="count">${genresName}</p>
         </div>
         </div>
         <p class="about">About</p>
         <p class="about-info">${film.overview}
         </p>
         </div>`;
+    id = film.id;
     title = film.title;
     vote = film.vote_average;
-    poster = film.poster_path;
+    poster_path = film.poster_path;
     const genres = [];
     film.genres.forEach(el => {
       genres.push(el.name);
     });
-    genre = genres.join(', ');
-    date = film.release_date.split('-')[0];
+    genresName = genres.join(', ');
+    release_date = film.release_date.split('-')[0];
   });
+
   refs.backdrop.classList.remove('is-hidden');
 }
 
@@ -93,20 +126,21 @@ refs.closeBtn.addEventListener('click', () => {
 
 const addWatched = document.querySelector('.add-to-watch');
 const addQueued = document.querySelector('.add-to-queue');
-const filmTitle = document.querySelector('.modal-title');
-const filmGenre = document.querySelector('#genre');
-const filmPoster = document.querySelector('.image');
-const filmVote = document.querySelector('#vote');
+// const filmTitle = document.querySelector('.modal-title');
+// const filmGenre = document.querySelector('#genre');
+// const filmPoster = document.querySelector('.image');
+// const filmVote = document.querySelector('#vote');
 const WATCHED_KEY = 'watched-films-list';
 const QUEUED_KEY = 'queued-films-list';
 
 addWatched.addEventListener('click', () => {
   const tempData = {
     title,
-    poster,
-    date,
-    genre,
+    poster_path,
+    release_date,
+    genresName,
     vote,
+    id,
   };
   if (!storageApi.load(WATCHED_KEY)) {
     storageApi.save(WATCHED_KEY, [tempData]);
@@ -123,16 +157,18 @@ addWatched.addEventListener('click', () => {
   }
   savedData.push(tempData);
   storageApi.save(WATCHED_KEY, savedData);
+
   Notify.info('Added to Watched');
 });
 
 addQueued.addEventListener('click', () => {
   const tempData = {
     title,
-    poster,
-    date,
-    genre,
+    poster_path,
+    release_date,
+    genresName,
     vote,
+    id,
   };
   if (!storageApi.load(QUEUED_KEY)) {
     storageApi.save(QUEUED_KEY, [tempData]);
