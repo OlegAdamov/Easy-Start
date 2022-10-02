@@ -21,7 +21,13 @@ watchedBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   pagination.reset(localStorageWatched().length);
-  createLibraryCard(paginateLocalStorage(localStorageWatched(), pagination._options.itemsPerPage, 1));
+  createLibraryCard(
+    paginateLocalStorage(
+      localStorageWatched(),
+      pagination._options.itemsPerPage,
+      1
+    )
+  );
   queueBtn.classList.remove('btn_library_active');
   watchedBtn.classList.add('btn_library_active');
 });
@@ -30,7 +36,13 @@ queueBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   pagination.reset(localStorageQueue().length);
-  createLibraryCard(paginateLocalStorage(localStorageQueue(), pagination._options.itemsPerPage, 1));
+  createLibraryCard(
+    paginateLocalStorage(
+      localStorageQueue(),
+      pagination._options.itemsPerPage,
+      1
+    )
+  );
   watchedBtn.classList.remove('btn_library_active');
   queueBtn.classList.add('btn_library_active');
 });
@@ -43,26 +55,30 @@ libraryBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   pagination.reset(localStorageWatched().length);
-  createLibraryCard(paginateLocalStorage(localStorageWatched(), pagination._options.itemsPerPage, 1));
+  createLibraryCard(
+    paginateLocalStorage(
+      localStorageWatched(),
+      pagination._options.itemsPerPage,
+      1
+    )
+  );
 });
 
 function createLibraryCard(movies) {
-  // console.log(movies)
   const markup = movies
     .map(watched_queue => moviesMurkup(watched_queue))
     .join('');
-  // console.log(markup);
   if (isWatchList()) {
     watched.innerHTML = markup;
     queued.innerHTML = null;
   } else {
     watched.innerHTML = null;
     queued.innerHTML = markup;
-  }
+  };
   gallery.innerHTML = null;
   pagination._offByEventName('afterMove', 'getResponseMovie');
   pagination.on('afterMove', getNextPage);
-}
+};
 
 const paginateLocalStorage = (array, page_size, page_number) => {
   return array.slice((page_number - 1) * page_size, page_number * page_size);
@@ -91,5 +107,5 @@ function getNextPage(event) {
   } catch (error) {
     console.log(error);
     Notify.failure(error.name);
-  }
+  };
 };

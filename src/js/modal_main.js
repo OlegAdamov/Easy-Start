@@ -1,7 +1,7 @@
-import { createGalleryMarkup } from './gallery';
 import storageApi from './localStorage/storage';
 import { API_KEY } from './feach/const';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// import { createGalleryMarkup } from './gallery';
 
 const refs = {
   galleryRef: document.querySelector('.gallery'),
@@ -98,48 +98,45 @@ refs.closeBtn.addEventListener('click', () => {
 
 const addWatched = document.querySelector('.add-to-watch');
 const addQueued = document.querySelector('.add-to-queue');
-// const filmTitle = document.querySelector('.modal-title');
-// const filmGenre = document.querySelector('#genre');
-// const filmPoster = document.querySelector('.image');
-// const filmVote = document.querySelector('#vote');
+
 const WATCHED_KEY = 'watched-films-list';
 const QUEUED_KEY = 'queued-films-list';
 
 addWatched.addEventListener('click', () => {
   if (!storageApi.load(WATCHED_KEY)) {
     storageApi.save(WATCHED_KEY, [movieData]);
-    Notify.info('Added to Watched');
+    Notify.info(`Added to Watched`);
     return;
   }
 
   const savedData = storageApi.load(WATCHED_KEY);
   for (const el of savedData) {
     if (JSON.stringify(el) === JSON.stringify(movieData)) {
-      Notify.info('Film is already in Watched');
+      Notify.info(`Film is already in Watched`);
       return;
     }
   }
   savedData.push(movieData);
   storageApi.save(WATCHED_KEY, savedData);
 
-  Notify.info('Added to Watched');
+  Notify.info(`Added to Watched`);
 });
 
 addQueued.addEventListener('click', () => {
   if (!storageApi.load(QUEUED_KEY)) {
     storageApi.save(QUEUED_KEY, [movieData]);
-    Notify.info('Added to Queue');
+    Notify.info(`Added to Queue`);
     return;
   }
 
   const savedData = storageApi.load(QUEUED_KEY);
   for (const el of savedData) {
     if (JSON.stringify(el) === JSON.stringify(movieData)) {
-      Notify.info('Film is already in Queue');
+      Notify.info(`Film is already in Queue`);
       return;
     }
   }
   savedData.push(movieData);
   storageApi.save(QUEUED_KEY, savedData);
-  Notify.info('Added to Queue');
+  Notify.info(`Added to Queue`);
 });
