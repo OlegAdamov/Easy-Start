@@ -8,6 +8,7 @@ const refs = {
   closeBtn: document.querySelector('.modal-close-btn'),
   backdrop: document.querySelector('.backdrop'),
   modalContainer: document.querySelector('.modal-container'),
+  tasksLoader: document.querySelector('.tasks-loader')
 };
 refs.galleryRef.addEventListener('click', onGalleryClick);
 
@@ -27,12 +28,15 @@ export function onGalleryClick(e) {
   if (!isMovieCard) {
     return;
   }
+  openModal(isMovieCard.id);
   refs.galleryRef.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       refs.backdrop.classList.add('is-hidden');
+      document.body.classList.remove('no-scroll');
     }
+    return isMovieCard;
   });
-  openModal(isMovieCard.id);
+  
   // checkWatchedAndQueued();
 }
 
@@ -53,22 +57,33 @@ function openModal(movie) {
   <div class="modal-rest">
   <h3 class="modal-title">${film.title}</h3>
       <div class="modal-info">
-        <div class="modal-description">
-          <p class="info-item">Vote / Votes</p>
-          <p class="info-item">Popularity</p>
-          <p class="info-item">Original Title</p>
-          <p class="info-item">Genre</p>
+      <div class="modal-table">
+      <table>
+        <tbody>
+        <tr>
+        <th class="info-item">Vote / Votes</th>
+        <td class="count" id="vote">${film.vote_average}</td>
+        </tr>    
+        <tr>
+        <th class="info-item">Popularity</th>
+        <td class="count">${film.popularity}</td>
+        </tr>    
+        <tr>
+        <th class="info-item">Original Title</th>
+        <td class="count">${film.original_title}</td>
+        </tr>   
+        <tr>
+        <th class="info-item">Genre</th>
+        <td class="count">${film.genres
+          .map(genre => genre.name)
+          .join(', ')}</td>
+        </tr>
+        </tbody>
+        </table>
         </div>
-        <div class="modal-count">
-          <p class="count" id="vote">${film.vote_average}</p>
-          <p class="count">${film.popularity}</p>
-          <p class="count">${film.original_title}</p>
-          <p class="count">${genresName}</p>
+        <h3 class="about">About</h3>
+        <p class="about-info">${film.overview}</p>
         </div>
-        </div>
-        <p class="about">About</p>
-        <p class="about-info">${film.overview}
-        </p>
         </div>`;
     id = film.id;
     title = film.title;
@@ -84,16 +99,19 @@ function openModal(movie) {
   });
 
   refs.backdrop.classList.remove('is-hidden');
+  document.body.classList.add('no-scroll');
 }
 
 window.addEventListener('click', e => {
   if (e.target === refs.backdrop) {
     refs.backdrop.classList.add('is-hidden');
+    document.body.classList.remove('no-scroll');
   }
 });
 
 refs.closeBtn.addEventListener('click', () => {
   refs.backdrop.classList.add('is-hidden');
+  document.body.classList.remove('no-scroll');
 });
 
 const addWatched = document.querySelector('.add-to-watch');
