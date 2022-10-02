@@ -12,6 +12,7 @@ const refs = {
   queued: document.querySelector('.queued'),
   searchForm: document.getElementById('search-form'),
   loader: document.getElementById('preloader'),
+  throwError: document.querySelector('.error-output'),
 };
 window.addEventListener('load', onLoader);
 function onLoader() {
@@ -23,7 +24,6 @@ refs.searchForm.addEventListener('submit', searchMovies);
 
 // TODO: await response before rendering the page
 (async () => {
-  console.log('RENDER');
   const genres = await filmAPIService.getGenres();
   storageApi.save('genres', genres);
 })();
@@ -32,15 +32,22 @@ async function searchMovies(e) {
   e.preventDefault();
   filmAPIService.query = e.target.elements.searchQuery.value.trim();
   if (filmAPIService.query === '') {
-    Notify.failure('Please enter a search word!');
+    throwError();
+    window.setTimeout(removeError, 2500);
     return;
   }
   try {
     const responsePopularMovie = await filmAPIService.getMovieByQuery();
     const movies = await responsePopularMovie.data.results;
+    if (movies.length === 0) {
+      throwError();
+      window.setTimeout(removeError, 2500);
+      return;
+    }
     createGalleryMarkupByQuery(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
-    Notify.failure(error.name);
+    console.log(error.name);
+    refs.throwError.textContent = `${error.name}`;
   }
 }
 
@@ -50,12 +57,14 @@ export async function getResponseMovie(event) {
     filmAPIService.page = event?.page || 1;
     const responsePopularMovie = await filmAPIService.getPopularMovie();
     const movies = await responsePopularMovie.data.results;
-    if (
+
+     if (
       responsePopularMovie.data.total_results !== pagination._options.totalItems
     ) {
       pagination.reset(responsePopularMovie.data.total_results);
     }
-    createGalleryCard(remakeGenres(movies, storageApi.load('genres')));
+    createGalleryMarkup(remakeGenres(movies, storageApi.load('genres')));
+
   } catch (error) {
     console.log(error);
     Notify.failure(error.name);
@@ -64,7 +73,7 @@ export async function getResponseMovie(event) {
 
 (async () => await getResponseMovie())();
 
-function createGalleryCard(res) {
+function createGalleryMarkup(res) {
   const markup = res.map(movie => moviesMurkup(movie)).join('');
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
@@ -73,11 +82,20 @@ function createGalleryCard(res) {
   pagination.on('afterMove', getResponseMovie);
 }
 
-function createGalleryMarkupByQuery(movies) {
-  const markup = createGalleryMarkup(movies);
-  refs.queued.innerHTML = null;
+
+function createGalleryMarkupByQuery(res) {
+  const markup = res.map(movie => moviesMurkup(movie)).join('');
+    refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
+
   refs.gallery.innerHTML = markup;
   pagination._offByEventName('afterMove', 'getNextPage');
   pagination.on('afterMove', getResponseMovie);
+}
+function throwError() {
+  refs.throwError.textContent =
+    'Search result not successful. Enter the correct movie name and';
+}
+function removeError() {
+  refs.throwError.textContent = '';
 }

@@ -22,15 +22,16 @@
   @media screen and (min-width: $desktop) {
     width: calc((100% - 100px) / 3);
   }
-    transition:  400ms ease-out;
-  &:focus, &:hover{
+  transition: 400ms ease-out;
+  &:focus,
+  &:hover {
     cursor: pointer;
+    transform: scale(1.05);
     box-shadow: 0px 10px 25px 3px var(--janre-color);
   }
 }
-.overflowHidden{
+.overflowHidden {
   overflow: hidden;
-  
 }
 .gallery__link {
   text-decoration: none;
@@ -47,10 +48,11 @@
     height: 574px;
   }
   transition: var(--transition-duration, --transition-timing-function);
-     &:focus, &:hover {
-      transform: scale(1.15);
-    }
-  
+  &:focus,
+  &:hover {
+    transform: scale(1.1);
+    border-radius: 0 0 65px 65px;
+  }
 }
 
 .meta {
