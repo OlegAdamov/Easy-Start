@@ -15,6 +15,7 @@ const glide = new Glide('.glide', {
   autoplay: 2000,
   hoverpause: true,
   bound: true,
+  
 });
 
 glide.mount();
