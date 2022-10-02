@@ -1,11 +1,10 @@
 import { createGalleryMarkup } from './gallery';
 import storageApi from './localStorage/storage';
+import { API_KEY } from './feach/const';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
 const refs = {
   galleryRef: document.querySelector('.gallery'),
-
   closeBtn: document.querySelector('.modal-close-btn'),
   backdrop: document.querySelector('.backdrop'),
   modalContainer: document.querySelector('.modal-container'),
@@ -18,6 +17,7 @@ let release_date = null;
 let genresName = null;
 let vote = null;
 let id = null;
+let movieData = null;
 
 export function onGalleryClick(e) {
   e.preventDefault();
@@ -35,35 +35,6 @@ export function onGalleryClick(e) {
   openModal(isMovieCard.id);
   // checkWatchedAndQueued();
 }
-
-// function checkWatchedAndQueued() {
-//   const tempData = {
-//     title,
-//     poster_path,
-//     release_date,
-//     genresName,
-//     vote,
-//     id,
-//   };
-// console.log(JSON.stringify(tempData));
-// console.log(tempData);
-// const savedDataWatched = storageApi.load(WATCHED_KEY);
-// const savedDataQueued = storageApi.load(QUEUED_KEY);
-
-// console.log(localStorage.getItem('queued-films-list'));
-// console.log(JSON.stringify(tempData));
-
-// for (const el of savedDataWatched) {
-//   if (JSON.stringify(el) === localStorage.getItem('watched-films-list')) {
-//     addWatched.textContent = 'remove from watched';
-//   }
-// }
-// for (const el of savedDataQueued) {
-//   if (JSON.stringify(el) === localStorage.getItem('queued-films-list')) {
-//     addQueued.textContent = 'remove from queued';
-//   }
-// }
-// }
 
 async function fetchDesr(movieId) {
   const response = await fetch(
@@ -109,6 +80,7 @@ function openModal(movie) {
     });
     genresName = genres.join(', ');
     release_date = film.release_date.split('-')[0];
+    movieData = { ...film, genresName, release_date }
   });
 
   refs.backdrop.classList.remove('is-hidden');
@@ -134,56 +106,42 @@ const WATCHED_KEY = 'watched-films-list';
 const QUEUED_KEY = 'queued-films-list';
 
 addWatched.addEventListener('click', () => {
-  const tempData = {
-    title,
-    poster_path,
-    release_date,
-    genresName,
-    vote,
-    id,
-  };
+
   if (!storageApi.load(WATCHED_KEY)) {
-    storageApi.save(WATCHED_KEY, [tempData]);
+    storageApi.save(WATCHED_KEY, [movieData]);
     Notify.info('Added to Watched');
     return;
   }
 
   const savedData = storageApi.load(WATCHED_KEY);
   for (const el of savedData) {
-    if (JSON.stringify(el) === JSON.stringify(tempData)) {
+    if (JSON.stringify(el) === JSON.stringify(movieData)) {
       Notify.info('Film is already in Watched');
       return;
     }
   }
-  savedData.push(tempData);
+  savedData.push(movieData);
   storageApi.save(WATCHED_KEY, savedData);
 
   Notify.info('Added to Watched');
 });
 
 addQueued.addEventListener('click', () => {
-  const tempData = {
-    title,
-    poster_path,
-    release_date,
-    genresName,
-    vote,
-    id,
-  };
+
   if (!storageApi.load(QUEUED_KEY)) {
-    storageApi.save(QUEUED_KEY, [tempData]);
+    storageApi.save(QUEUED_KEY, [movieData]);
     Notify.info('Added to Queue');
     return;
   }
 
   const savedData = storageApi.load(QUEUED_KEY);
   for (const el of savedData) {
-    if (JSON.stringify(el) === JSON.stringify(tempData)) {
+    if (JSON.stringify(el) === JSON.stringify(movieData)) {
       Notify.info('Film is already in Queue');
       return;
     }
   }
-  savedData.push(tempData);
+  savedData.push(movieData);
   storageApi.save(QUEUED_KEY, savedData);
   Notify.info('Added to Queue');
 });
