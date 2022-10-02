@@ -4,7 +4,6 @@
 // const form = document.querySelector('.button');
 // // const trimedValue = form.value.trim();
 
-
 // form.addEventListener('click', event )
 // console.log(event)
 // console.log(results.results)
@@ -17,10 +16,6 @@
 // //     return;
 // //   }
 
-        
-// // }  
-
-
+// // }
 
 /////////////////////////Active page///////////////////////////
-

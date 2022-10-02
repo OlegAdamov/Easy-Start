@@ -1,11 +1,12 @@
 import Glide from '@glidejs/glide';
-import axios from 'axios';
 import filmsCardSliderTpl from '../templates/slider.hbs';
-
+import { onGalleryClick } from './modal_main';
 
 const sliderContainer = document.querySelector('.js-slider-container');
 renderTrendy();
 const filmsCardSlider = new filmsCardSliderTpl();
+
+sliderContainer.addEventListener('click', onGalleryClick);
 
 const glide = new Glide('.glide', {
   type: 'slider',
