@@ -6,8 +6,10 @@ const queueBtn = document.querySelector('#btn_queue');
 const homeBtn = document.querySelector('#activ-homeJs');
 const libraryBtn = document.querySelector('#activ-libraryJs');
 
-const localStorageWatched = localStorage.getItem('watched-films-list');
-const localStorageQueue = localStorage.getItem('queued-films-list');
+const localStorageWatched = JSON.parse(
+  localStorage.getItem('watched-films-list')
+);
+const localStorageQueue = JSON.parse(localStorage.getItem('queued-films-list'));
 
 watchedBtn.addEventListener('click', () => {
   gallery.innerHTML = null;
@@ -35,6 +37,5 @@ function createLibraryCard(movies) {
   const markup = movies
     .map(watched_queue => moviesMurkup(watched_queue))
     .join('');
-  console.log(markup);
   gallery.insertAdjacentHTML('beforeend', markup);
 }
