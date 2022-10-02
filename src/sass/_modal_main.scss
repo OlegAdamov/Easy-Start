@@ -47,7 +47,7 @@
 .modal-img {
     position: relative;
     @media screen and (min-width: $tablet) {
-        padding: 40px 16px 40px 12px;
+        padding: 40px 16px 0px 12px;
       }
     
 }
@@ -93,7 +93,6 @@ margin-bottom: 20px;
   }
 }
 .modal-info {
-    display: flex;
     margin-bottom: 20px;
 }
 .modal-description {
@@ -102,24 +101,26 @@ margin-bottom: 20px;
         margin-right: 39px;
     }
 }
+.modal-table{
+  margin-bottom: 20px;
+}
 .info-item{
-
+padding: 4px 0;
+vertical-align: top;
+text-align: left;
+width: 108px;
 font-weight: 500;
 font-size: 12px;
 line-height: 1.33;
 color: #8C8C8C;
-&:not(:last-child) {
-    margin-bottom: 8px;
+@media screen and (min-width: $desktop) {
+  width: 152px;
 }
 }
 .count {
-
 font-weight: 500;
 font-size: 12px;
 line-height: 1.16;
-&:not(:last-child) {
-    margin-bottom: 10px;
-}
 }
 
 .about {
@@ -165,15 +166,12 @@ flex-shrink: 0;
 .buttons {
     
     display: flex;
-    justify-content: center;
-    bottom: 40px;
-    left: 325px;
-    position: absolute;
-    @media screen and (min-width: $mobile) {
-      left: 20px;
-    }
+
     @media screen and (min-width: $tablet) {
-      left: 375px;
+      margin-left: 340px;
+    }
+    @media screen and (min-width: $desktop) {
+      margin-left: 325px;
     }
 }
 .add-to-queue {
