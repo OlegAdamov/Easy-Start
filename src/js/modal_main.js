@@ -1,15 +1,20 @@
-import { createGalleryMarkup } from './gallery';
 import storageApi from './localStorage/storage';
+import { API_KEY } from './feach/const';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// import { createGalleryMarkup } from './gallery';
 
-const API_KEY = 'ba12bbb2efd4020faab2c5dd14dc19c0';
 const refs = {
   galleryRef: document.querySelector('.gallery'),
-
-  closeBtn: document.querySelector('.modal-close-btn'),
+  closeBtn: document.querySelector('.modal_close_btn'),
   backdrop: document.querySelector('.backdrop'),
   modalContainer: document.querySelector('.modal-container'),
+  tasksLoader: document.querySelector('.tasks-loader'),
+  addWatched: document.querySelector('.add-to-watch'),
+  addQueued: document.querySelector('.add-to-queue'),
+  WATCHED_KEY: 'watched-films-list',
+  QUEUED_KEY: 'queued-films-list',
 };
+
 refs.galleryRef.addEventListener('click', onGalleryClick);
 
 let title = null;
@@ -17,51 +22,20 @@ let poster_path = null;
 let release_date = null;
 let genresName = null;
 let vote = null;
+let votes = null;
 let id = null;
+let movieData = null;
 
-function onGalleryClick(e) {
+export function onGalleryClick(e) {
   e.preventDefault();
-  const isMovieCard = e.target.closest('.gallery__item');
+  const isMovieCard =
+    e.target.closest('.gallery__item') || e.target.closest('.slider-card');
+  // console.log(isMovieCard, 'isMovieCard');
   if (!isMovieCard) {
     return;
   }
-  refs.galleryRef.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      refs.backdrop.classList.add('is-hidden');
-    }
-  });
   openModal(isMovieCard.id);
-  // checkWatchedAndQueued();
 }
-
-// function checkWatchedAndQueued() {
-//   const tempData = {
-//     title,
-//     poster_path,
-//     release_date,
-//     genresName,
-//     vote,
-//     id,
-//   };
-// console.log(JSON.stringify(tempData));
-// console.log(tempData);
-// const savedDataWatched = storageApi.load(WATCHED_KEY);
-// const savedDataQueued = storageApi.load(QUEUED_KEY);
-
-// console.log(localStorage.getItem('queued-films-list'));
-// console.log(JSON.stringify(tempData));
-
-// for (const el of savedDataWatched) {
-//   if (JSON.stringify(el) === localStorage.getItem('watched-films-list')) {
-//     addWatched.textContent = 'remove from watched';
-//   }
-// }
-// for (const el of savedDataQueued) {
-//   if (JSON.stringify(el) === localStorage.getItem('queued-films-list')) {
-//     addQueued.textContent = 'remove from queued';
-//   }
-// }
-// }
 
 async function fetchDesr(movieId) {
   const response = await fetch(
@@ -74,114 +48,135 @@ async function fetchDesr(movieId) {
 function openModal(movie) {
   fetchDesr(movie).then(film => {
     refs.modalContainer.innerHTML = `
-    <div id="${id}" class="modal-img">
-    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title} ${film.name}" class="image" />
+    <div class="modal-img">
+    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${
+      film.title
+    } ${film.name}" class="image" />
   </div>
   <div class="modal-rest">
   <h3 class="modal-title">${film.title}</h3>
       <div class="modal-info">
-        <div class="modal-description">
-          <p class="info-item">Vote / Votes</p>
-          <p class="info-item">Popularity</p>
-          <p class="info-item">Original Title</p>
-          <p class="info-item">Genre</p>
+        <div class="modal-table">
+          <table>
+              <tbody>
+              <tr>
+              <th class="info-item">Vote / Votes</th>
+              <td class="count" id="vote"><span class = "vote_accent">${Number(
+                film.vote_average
+              ).toFixed(1)}</span> / ${film.vote_count}</td>
+              </tr>
+              <tr>
+              <th class="info-item">Popularity</th>
+              <td class="count">${film.popularity}</td>
+              </tr>    
+              <tr>
+              <th class="info-item">Original Title</th>
+              <td class="count">${film.original_title}</td>
+              </tr>   
+              <tr>
+              <th class="info-item">Genre</th>
+              <td class="count">${film.genres
+                .map(genre => genre.name)
+                .join(', ')}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        <h3 class="about">About</h3>
+        <p class="about-info">${film.overview}</p>
         </div>
-        <div class="modal-count">
-          <p class="count" id="vote">${film.vote_average}</p>
-          <p class="count">${film.popularity}</p>
-          <p class="count">${film.original_title}</p>
-          <p class="count">${genresName}</p>
-        </div>
-        </div>
-        <p class="about">About</p>
-        <p class="about-info">${film.overview}
-        </p>
+          
         </div>`;
     id = film.id;
     title = film.title;
-    vote = film.vote_average;
+    votes = film.vote_count;
     poster_path = film.poster_path;
-    const genres = [];
-    film.genres.forEach(el => {
-      genres.push(el.name);
-    });
-    genresName = genres.join(', ');
     release_date = film.release_date.split('-')[0];
+    movieData = { ...film, genresName, release_date };
   });
 
   refs.backdrop.classList.remove('is-hidden');
+  document.body.classList.add('no-scroll');
+  closeModal();
 }
 
-window.addEventListener('click', e => {
-  if (e.target === refs.backdrop) {
+function closeModal() {
+  document.addEventListener('click', e => {
+    if (e.target === refs.backdrop) {
+      refs.backdrop.classList.add('is-hidden');
+      document.body.classList.remove('no-scroll');
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      refs.backdrop.classList.add('is-hidden');
+      document.body.classList.remove('no-scroll');
+    }
+  });
+  refs.closeBtn.addEventListener('click', () => {
     refs.backdrop.classList.add('is-hidden');
-  }
-});
+    document.body.classList.remove('no-scroll');
+  });
+}
 
-refs.closeBtn.addEventListener('click', () => {
-  refs.backdrop.classList.add('is-hidden');
-});
-
-const addWatched = document.querySelector('.add-to-watch');
-const addQueued = document.querySelector('.add-to-queue');
-// const filmTitle = document.querySelector('.modal-title');
-// const filmGenre = document.querySelector('#genre');
-// const filmPoster = document.querySelector('.image');
-// const filmVote = document.querySelector('#vote');
-const WATCHED_KEY = 'watched-films-list';
-const QUEUED_KEY = 'queued-films-list';
-
-addWatched.addEventListener('click', () => {
-  const tempData = {
-    title,
-    poster_path,
-    release_date,
-    genresName,
-    vote,
-    id,
-  };
-  if (!storageApi.load(WATCHED_KEY)) {
-    storageApi.save(WATCHED_KEY, [tempData]);
-    Notify.info('Added to Watched');
+refs.addWatched.addEventListener('click', () => {
+  refs.addWatched.style.backgroundColor = '#ff6b01';
+  refs.addWatched.style.color = '#fff';
+  // refs.addWatched.textContent = 'remove from watched';
+  if (!storageApi.load(refs.WATCHED_KEY)) {
+    storageApi.save(refs.WATCHED_KEY, [movieData]);
+    Notify.info(`Added to Watched`);
     return;
   }
 
-  const savedData = storageApi.load(WATCHED_KEY);
+  const savedData = storageApi.load(refs.WATCHED_KEY);
   for (const el of savedData) {
-    if (JSON.stringify(el) === JSON.stringify(tempData)) {
-      Notify.info('Film is already in Watched');
+    if (JSON.stringify(el) === JSON.stringify(movieData)) {
+      Notify.info(`Film is already in Watched`);
       return;
     }
   }
-  savedData.push(tempData);
-  storageApi.save(WATCHED_KEY, savedData);
-
-  Notify.info('Added to Watched');
+  savedData.push(movieData);
+  storageApi.save(refs.WATCHED_KEY, savedData);
+  Notify.info(`Added to Watched`);
+  refs.addWatched.removeEventListener;
 });
 
-addQueued.addEventListener('click', () => {
-  const tempData = {
-    title,
-    poster_path,
-    release_date,
-    genresName,
-    vote,
-    id,
-  };
-  if (!storageApi.load(QUEUED_KEY)) {
-    storageApi.save(QUEUED_KEY, [tempData]);
-    Notify.info('Added to Queue');
+refs.addQueued.addEventListener('click', () => {
+  refs.addQueued.style.backgroundColor = '#ff6b01';
+  refs.addQueued.style.color = '#fff';
+  if (!storageApi.load(refs.QUEUED_KEY)) {
+    storageApi.save(refs.QUEUED_KEY, [movieData]);
+    Notify.info(`Added to Queue`);
     return;
   }
-
-  const savedData = storageApi.load(QUEUED_KEY);
+  const savedData = storageApi.load(refs.QUEUED_KEY);
   for (const el of savedData) {
-    if (JSON.stringify(el) === JSON.stringify(tempData)) {
-      Notify.info('Film is already in Queue');
+    if (JSON.stringify(el) === JSON.stringify(movieData)) {
+      Notify.info(`Film is already in Queue`);
       return;
     }
   }
-  savedData.push(tempData);
-  storageApi.save(QUEUED_KEY, savedData);
-  Notify.info('Added to Queue');
+  savedData.push(movieData);
+  storageApi.save(refs.QUEUED_KEY, savedData);
+  Notify.info(`Added to Queue`);
 });
+
+refs.addQueued.addEventListener('click', handlerQueue);
+refs.addWatched.addEventListener('click', handlerWatched);
+
+function handlerQueue(e) {
+  var el = e.target;
+  if (el.innerHTML == 'add to queue') {
+    refs.addQueued.style.backgroundColor = '#fff';
+    refs.addQueued.style.color = '#000';
+  }
+}
+
+function handlerWatched(e) {
+  var el = e.target;
+  if (el.innerHTML == 'add to watched') {
+    refs.addWatched.style.backgroundColor = '#fff';
+    refs.addWatched.style.color = '#000';
+  }
+}

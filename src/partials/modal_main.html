@@ -1,22 +1,28 @@
 <div class="backdrop is-hidden" data-modal>
   <div class="modal-main">
-    <button type="button" class="modal-close-btn btn" data-modal-close>
-      <svg class="modal-icon" width="14" height="14">
+    <button type="button" class="modal_close_btn" data-modal-close>
+      <svg class="modal-icon" width="20" height="20">
         <use href="/src/images/symbol-defs.svg#icon-close"></use>
-        </svg>
-        </button>
-  <div class="modal-container"></div>
-      <div class="buttons">
-        <button class="add-to-watch" type="button">add to watched</button>
-        <button class="add-to-queue" type="button">add to queue</button>
-        <button class="remove-to-watch is-hidden" type="button">
-          remove-to-queue
-        </button>
-        <button class="remove-to-queue is-hidden" type="button">
-          remove-to-watch
-        </button>
-      </div>
+      </svg>
+    </button>
+    <div class="modal-container"></div>
+    <div class="buttons">
+      <button
+        class="add-to-watch"
+        type="button"
+        onClick='this.innerHTML=="remove from watched" ? this.innerHTML="add to watched" : this.innerHTML="remove from watched"'
+      >
+        add to watched
+      </button>
+      <button
+        class="add-to-queue"
+        type="button"
+        onClick='this.innerHTML=="remove from queue" ? this.innerHTML="add to queue" : this.innerHTML="remove from queue"'
+      >
+        add to queue
+      </button>
     </div>
   </div>
 </div>
+
 <script type="module" src="./js/modal_main.js"></script>
