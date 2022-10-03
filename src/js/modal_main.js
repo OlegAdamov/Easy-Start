@@ -5,6 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
   galleryRef: document.querySelector('.gallery'),
+
   closeBtn: document.querySelector('.modal_close_btn'),
   backdrop: document.querySelector('.backdrop'),
   modalContainer: document.querySelector('.modal-container'),
@@ -30,7 +31,6 @@ export function onGalleryClick(e) {
   e.preventDefault();
   const isMovieCard =
     e.target.closest('.gallery__item') || e.target.closest('.slider-card');
-  // console.log(isMovieCard, 'isMovieCard');
   if (!isMovieCard) {
     return;
   }
@@ -85,7 +85,7 @@ function openModal(movie) {
         <h3 class="about">About</h3>
         <p class="about-info">${film.overview}</p>
         </div>
-          
+       
         </div>`;
     id = film.id;
     title = film.title;
@@ -118,7 +118,6 @@ function closeModal() {
     document.body.classList.remove('no-scroll');
   });
 }
-
 refs.addWatched.addEventListener('click', () => {
   refs.addWatched.style.backgroundColor = '#ff6b01';
   refs.addWatched.style.color = '#fff';
@@ -128,7 +127,6 @@ refs.addWatched.addEventListener('click', () => {
     Notify.info(`Added to Watched`);
     return;
   }
-
   const savedData = storageApi.load(refs.WATCHED_KEY);
   for (const el of savedData) {
     if (JSON.stringify(el) === JSON.stringify(movieData)) {
@@ -137,6 +135,7 @@ refs.addWatched.addEventListener('click', () => {
     }
   }
   savedData.push(movieData);
+
   storageApi.save(refs.WATCHED_KEY, savedData);
   Notify.info(`Added to Watched`);
   refs.addWatched.removeEventListener;
@@ -147,6 +146,7 @@ refs.addQueued.addEventListener('click', () => {
   refs.addQueued.style.color = '#fff';
   if (!storageApi.load(refs.QUEUED_KEY)) {
     storageApi.save(refs.QUEUED_KEY, [movieData]);
+
     Notify.info(`Added to Queue`);
     return;
   }
@@ -158,7 +158,9 @@ refs.addQueued.addEventListener('click', () => {
     }
   }
   savedData.push(movieData);
+
   storageApi.save(refs.QUEUED_KEY, savedData);
+
   Notify.info(`Added to Queue`);
 });
 

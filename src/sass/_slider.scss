@@ -2,7 +2,7 @@
 @import 'node_modules/@glidejs/glide/src/assets/sass/glide.theme';
 
 .slider-wrapper {
-    background-color: rgb(247, 247, 247);
+    background-color: inherit;
     padding-bottom: 20px;
     font-size: 13px;
   
@@ -12,7 +12,30 @@
   }
   
   .glide__arrow {
-    background-color: #ff6b08;
+    // display: none;
+    // background-color: #ff6b08;
+    position: absolute;
+    display: block;
+    top: 50%;
+    z-index: 2;
+    color: white;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.1);
+    text-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    cursor: pointer;
+    transition: opacity 150ms ease, border 300ms ease-in-out;
+    transform: translateY(-50%);
+    line-height: 1;
+    &:hover,
+  &:focus {
+    box-shadow: 0px 0px 5px 0px #ffffff;
+  }
+
   }
 
   .slider-card {
@@ -24,18 +47,19 @@
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center;
-  
-    color: #818181;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
     font-weight: 700;
-    line-height: 2;
+    font-size: 20px;
+    line-height: 1.17;
     text-transform: uppercase;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+    text-shadow: 4px 4px 2px #969696;
   }
 
   .slider-image {
     border-radius: 5px;
+    transition: var(--transition-duration, --transition-timing-function);
+     &:focus, &:hover {
+      transform: scale(1.05);
+    }
   }
 
   .rating-slider {
