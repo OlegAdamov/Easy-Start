@@ -55,17 +55,20 @@
   line-height: 14px;
 }
 .modal-img {
-  position: relative;
-}
+    position: relative;
+    @media screen and (min-width: $tablet) {
+        margin: 40px 16px 0px 12px;
+      }
+ }
 .modal-rest {
-  overflow: hidden;
-  padding: 0;
-  @media screen and (min-width: $tablet) {
-    margin-left: 65px;
-  }
-  @media screen and (min-width: $desktop) {
-    padding: 0;
-  }
+    overflow:hidden;
+    margin: 0;
+    @media screen and (min-width: $tablet) {
+      margin: 35px 0 0 50px;
+    }
+    @media screen and (min-width: $desktop) {
+      margin: 0;
+    }
 }
 .image {
   width: 375px;
@@ -108,18 +111,21 @@
 .modal-table {
   margin-bottom: 20px;
 }
-.info-item {
-  padding: 4px 0;
-  vertical-align: top;
-  text-align: left;
-  width: 108px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-  color: #8c8c8c;
-  @media screen and (min-width: $desktop) {
-    width: 152px;
-  }
+.info-element {
+  display: flex;
+  align-items: center;
+}
+.info-item{
+
+font-weight: 500;
+font-size: 12px;
+line-height: 1.33;
+color: #8C8C8C;
+
+width: 115px;
+@media screen and (min-width: $desktop) {
+  width: 132px;
+}
 }
 .count {
   font-weight: 500;

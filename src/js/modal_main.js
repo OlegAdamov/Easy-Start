@@ -36,7 +36,6 @@ export function onGalleryClick(e) {
   }
   openModal(isMovieCard.id);
 }
-
 async function fetchDesr(movieId) {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`
@@ -56,32 +55,26 @@ function openModal(movie) {
   <div class="modal-rest">
   <h3 class="modal-title">${film.title}</h3>
       <div class="modal-info">
-        <div class="modal-table">
-          <table>
-              <tbody>
-              <tr>
-              <th class="info-item">Vote / Votes</th>
-              <td class="count" id="vote"><span class = "vote_accent">${Number(
-                film.vote_average
-              ).toFixed(1)}</span> / ${film.vote_count}</td>
-              </tr>
-              <tr>
-              <th class="info-item">Popularity</th>
-              <td class="count">${film.popularity}</td>
-              </tr>    
-              <tr>
-              <th class="info-item">Original Title</th>
-              <td class="count">${film.original_title}</td>
-              </tr>   
-              <tr>
-              <th class="info-item">Genre</th>
-              <td class="count">${film.genres
-                .map(genre => genre.name)
-                .join(', ')}</td>
-              </tr>
-              </tbody>
-            </table>
+      <div class="modal-table">
+        <div class="info-element">      
+        <p class="info-item">Vote / Votes</p>
+        <p class="count" id="vote"><span class = "vote_accent">${Number(film.vote_average).toFixed(1)}</span> / ${film.vote_count}</p>
+        </div>
+        <div class="info-element">
+        <p class="info-item">Popularity</p>
+        <p class="count">${film.popularity}</p>
+        </div>
+        <div class="info-element">
+        <p class="info-item">Original Title</p>
+        <p class="count">${film.original_title}</p>
+        </div>
+        <div class="info-element">
+        <p class="info-item">Genre</p>
+        <p class="count">${film.genres
+          .map(genre => genre.name)
+          .join(', ')}</p>
           </div>
+        </div>
         <h3 class="about">About</h3>
         <p class="about-info">${film.overview}</p>
         </div>
