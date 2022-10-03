@@ -1,3 +1,4 @@
+import loader from './loader'
 const refHome = document.querySelector('#activ-homeJs');
 const refMyLibrary = document.querySelector('#activ-libraryJs');
 const formPdg = document.querySelector('.form_pdg');
@@ -8,7 +9,7 @@ refHome.addEventListener('click', onRefHome);
 
 function onRefMyLibrary(evt) {
   evt.preventDefault();
-
+loader()
   refHome.classList.remove('current');
   refMyLibrary.classList.add('current');
   buttonsPdg.classList.remove('visually-hidden');

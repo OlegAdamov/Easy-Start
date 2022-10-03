@@ -108,4 +108,5 @@ function getNextPage(event) {
     console.log(error);
     Notify.failure(error.name);
   };
+  window.scrollTo(0,0)
 };
