@@ -29,16 +29,17 @@ export function onGalleryClick(e) {
     return;
   }
   openModal(isMovieCard.id);
-  refs.galleryRef.addEventListener('keydown', e => {
+  window.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       refs.backdrop.classList.add('is-hidden');
       document.body.classList.remove('no-scroll');
     }
     return isMovieCard;
   });
-  
   // checkWatchedAndQueued();
 }
+
+
 
 async function fetchDesr(movieId) {
   const response = await fetch(
@@ -58,28 +59,25 @@ function openModal(movie) {
   <h3 class="modal-title">${film.title}</h3>
       <div class="modal-info">
       <div class="modal-table">
-      <table>
-        <tbody>
-        <tr>
-        <th class="info-item">Vote / Votes</th>
-        <td class="count" id="vote">${film.vote_average}</td>
-        </tr>    
-        <tr>
-        <th class="info-item">Popularity</th>
-        <td class="count">${film.popularity}</td>
-        </tr>    
-        <tr>
-        <th class="info-item">Original Title</th>
-        <td class="count">${film.original_title}</td>
-        </tr>   
-        <tr>
-        <th class="info-item">Genre</th>
-        <td class="count">${film.genres
+        
+        <div class="info-element">      
+        <p class="info-item">Vote / Votes</p>
+        <p class="count" id="vote"><span class="count-votes">${film.vote_average}</span> / ${film.vote_count}</p>
+        </div>
+        <div class="info-element">
+        <p class="info-item">Popularity</p>
+        <p class="count">${film.popularity}</p>
+        </div>
+        <div class="info-element">
+        <p class="info-item">Original Title</p>
+        <p class="count">${film.original_title}</p>
+        </div>
+        <div class="info-element">
+        <p class="info-item">Genre</p>
+        <p class="count">${film.genres
           .map(genre => genre.name)
-          .join(', ')}</td>
-        </tr>
-        </tbody>
-        </table>
+          .join(', ')}</p>
+          </div>
         </div>
         <h3 class="about">About</h3>
         <p class="about-info">${film.overview}</p>
