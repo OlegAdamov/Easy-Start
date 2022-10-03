@@ -4,10 +4,9 @@ const refs = {
   head: document.querySelector('.header_bgr'),
   form: document.querySelector('.search-form'),
   errorOutput: document.querySelector('.error-output'),
-}
-
+  headRefs: document.querySelectorAll('.header_href '),
+};
 const { height: searchContainer } = refs.head.getBoundingClientRect();
-
 
 refs.backTopBtn.addEventListener('click', scrollToTop);
 
@@ -20,9 +19,9 @@ function visabilityButtonSwitcher() {
     document.body.scrollTop > 150 ||
     document.documentElement.scrollTop > 150
   ) {
-    addStyleByScroll()
+    addStyleByScroll();
   } else {
-    removeStyleByScroll()
+    removeStyleByScroll();
   }
 }
 
@@ -42,19 +41,25 @@ function scrollToTop() {
 }
 function addStyleByScroll() {
   document.body.style.paddingTop = `${searchContainer + 40}px`;
+  refs.headRefs.forEach(headRef => headRef.classList.add('hidden-head-href'));
   refs.backTopBtn.style.display = 'block';
   refs.head.classList.add('fixed-header');
   refs.form.classList.add('fixed-form');
-  refs.toggleBtn.style.right = '256px'
-  refs.toggleBtn.style.bottom = '30px'
-  refs.errorOutput.style.top = '80px'
+  refs.toggleBtn.classList.add('fixed-toggle');
+  refs.toggleBtn.classList.remove('toggle');
+  refs.errorOutput.classList.add('hidden-error');
+  refs.errorOutput.style.top = '80px';
 }
 function removeStyleByScroll() {
   document.body.style.paddingTop = '';
+  refs.headRefs.forEach(headRef =>
+    headRef.classList.remove('hidden-head-href')
+  );
   refs.backTopBtn.style.display = 'none';
-  refs.head.classList.remove('fixed-header')
+  refs.head.classList.remove('fixed-header');
   refs.form.classList.remove('fixed-form');
-  refs.toggleBtn.style.right = '20px'
-  refs.toggleBtn.style.right = '20px'
-  refs.errorOutput.style.top = ''
+  refs.toggleBtn.classList.add('toggle');
+  refs.toggleBtn.classList.remove('fixed-toggle');
+  refs.errorOutput.classList.remove('hidden-error');
+  refs.errorOutput.style.top = '';
 }
