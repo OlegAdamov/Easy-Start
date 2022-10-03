@@ -148,10 +148,14 @@
   top: 0;
   height: 100px;
   transform: translate(-50%, 0);
+  transition: var(--transition-duration, --transition-timing-function);
   @media screen and (max-width: 1279px) {
     height: 66px;
     width: 100%;
   }
+}
+.fixed-header.hide {
+  transform: translateY(-66px);
 }
 .fixed-form {
   position: absolute;
