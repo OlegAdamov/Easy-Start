@@ -1,0 +1,2 @@
+!function(){const e={head:document.querySelector(".header_bgr")},n=()=>window.pageYOffset||document.documentElement.scrollTop,d=()=>e.head.classList.contains("hide");let i=0;function s(){window.innerWidth<768&&e.head.classList.contains("fixed-header")&&(n()>i&&!d()&&n()>600?e.head.classList.add("hide"):n()<i&&d()&&e.head.classList.remove("hide"),i=n())}window.addEventListener("scroll",s),window.onresize=function(){s()}}();
+//# sourceMappingURL=index.fb2540bd.js.map
