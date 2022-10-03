@@ -5,6 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import storageApi from './localStorage/storage';
 import { pagination } from './pagination';
 import Pagination from 'tui-pagination';
+import loader from './loader'
 
 const filmAPIService = new FilmAPIService();
 const refs = {
@@ -15,12 +16,12 @@ const refs = {
   loader: document.getElementById('preloader'),
   throwError: document.querySelector('.error-output'),
 };
-window.addEventListener('load', onLoader);
-function onLoader() {
-  setTimeout(() => {
-    refs.loader.style.display = 'none';
-  }, 500);
-};
+// window.addEventListener('load', onLoader);
+// function onLoader() {
+//   setTimeout(() => {
+//     refs.loader.style.display = 'none';
+//   }, 500);
+// };
 refs.searchForm.addEventListener('submit', searchMovies);
 
 // TODO: await response before rendering the page
@@ -31,6 +32,7 @@ refs.searchForm.addEventListener('submit', searchMovies);
 
 async function searchMovies(e) {
   e.preventDefault();
+  filmAPIService.page = 1;
   filmAPIService.query = e.target.elements.searchQuery.value.trim();
   if (filmAPIService.query === '') {
     throwError();
@@ -76,6 +78,7 @@ export async function getResponseMovie(event) {
 (async () => await getResponseMovie())();
 
 function createGalleryMarkup(res) {
+  loader()
   const markup = res.map(movie => moviesMurkup(movie)).join('');
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
@@ -86,6 +89,7 @@ function createGalleryMarkup(res) {
 };
 
 function createGalleryMarkupByQuery(res) {
+  loader()
   const markup = res.map(movie => moviesMurkup(movie)).join('');
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
