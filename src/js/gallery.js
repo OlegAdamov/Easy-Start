@@ -82,6 +82,7 @@ function createGalleryMarkup(res) {
   refs.gallery.innerHTML = markup;
   pagination._offByEventName('afterMove', 'getNextPage');
   pagination.on('afterMove', getResponseMovie);
+  window.scrollTo(0,0)
 };
 
 function createGalleryMarkupByQuery(res) {
