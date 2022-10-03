@@ -46,12 +46,12 @@ queueBtn.addEventListener('click', () => {
   watchedBtn.classList.remove('btn_library_active');
   queueBtn.classList.add('btn_library_active');
 });
-
 homeBtn.addEventListener('click', () => {
   location.reload();
 });
-
 libraryBtn.addEventListener('click', () => {
+  watchedBtn.classList.add('btn_library_active');
+  queueBtn.classList.remove('btn_library_active');
   gallery.innerHTML = null;
   sliderWrapper.innerHTML = null;
   pagination.reset(localStorageWatched().length);
@@ -63,7 +63,6 @@ libraryBtn.addEventListener('click', () => {
     )
   );
 });
-
 function createLibraryCard(movies) {
   const markup = movies
     .map(watched_queue => moviesMurkup(watched_queue))
@@ -79,11 +78,9 @@ function createLibraryCard(movies) {
   pagination._offByEventName('afterMove', 'getResponseMovie');
   pagination.on('afterMove', getNextPage);
 };
-
 const paginateLocalStorage = (array, page_size, page_number) => {
   return array.slice((page_number - 1) * page_size, page_number * page_size);
 };
-
 function getNextPage(event) {
   try {
     let currentStorage;
@@ -110,3 +107,4 @@ function getNextPage(event) {
   };
   window.scrollTo(0,0)
 };
+
