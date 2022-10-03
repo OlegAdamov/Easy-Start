@@ -52,3 +52,8 @@
     }
   }
 }
+.tui-pagination.custom-tui-pagination .tui-page-btn {
+  @media screen and (max-width: 769px) {
+    min-width: 30px;
+  }
+}
