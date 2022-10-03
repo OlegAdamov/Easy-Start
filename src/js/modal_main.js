@@ -90,6 +90,7 @@ function openModal(movie) {
 
   refs.backdrop.classList.remove('is-hidden');
   document.body.classList.add('no-scroll');
+  refs.backdrop.classList.add('scroll');
   closeModal();
 }
 
@@ -98,17 +99,20 @@ function closeModal() {
     if (e.target === refs.backdrop) {
       refs.backdrop.classList.add('is-hidden');
       document.body.classList.remove('no-scroll');
+      refs.backdrop.classList.remove('scroll');
     }
   });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       refs.backdrop.classList.add('is-hidden');
       document.body.classList.remove('no-scroll');
+      refs.backdrop.classList.remove('scroll');
     }
   });
   refs.closeBtn.addEventListener('click', () => {
     refs.backdrop.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
+    refs.backdrop.classList.remove('scroll');
   });
 }
 refs.addWatched.addEventListener('click', () => {
