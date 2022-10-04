@@ -1,5 +1,5 @@
 import Glide from '@glidejs/glide';
-import filmsCardSliderTpl from './templates/slider.hbs';
+import filmsCardSliderTpl from '../templates/slider.hbs';
 import { onGalleryClick } from './modal_main';
 
 const sliderContainer = document.querySelector('.js-slider-container');
