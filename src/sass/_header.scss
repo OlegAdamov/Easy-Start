@@ -2,15 +2,15 @@
   position: relative;
   padding: 15px;
   height: 230px;
-  background-image: url(../images/bgr-header-mob.jpg);
+  background-image: url(./images/bgr-header-mob.jpg);
   background-size: cover;
   @media screen and (min-width: $tablet) {
     height: 219px;
-    background-image: url(../images/bgr-header-tablet.jpg);
+    background-image: url(./images/bgr-header-tablet.jpg);
   }
 
   @media screen and (min-width: $desktop) {
-    background-image: url(../images/bgr-header-desk.jpg);
+    background-image: url(./images/bgr-header-desk.jpg);
     width: $desktop;
     height: 216px;
     padding: 32px;
@@ -26,7 +26,7 @@
       to right,
       rgba(0, 0, 0, 0.56),
       rgba(0, 0, 0, 0.56)
-    ), url(../images/mob.png);
+    ), url(./images/mob.png);
     background-size: cover;
   
     @media screen and (min-width: $tablet) {
@@ -35,7 +35,7 @@
       to right,
       rgba(0, 0, 0, 0.56),
       rgba(0, 0, 0, 0.56)
-    ), url(../images/tablet.png);
+    ), url(./images/tablet.png);
     }
   
     @media screen and (min-width: $desktop) {
@@ -43,7 +43,7 @@
       to right,
       rgba(0, 0, 0, 0.56),
       rgba(0, 0, 0, 0.56)
-    ), url(../images/desk.png);
+    ), url(./images/desk.png);
       width: $desktop;
       height: 216px;
       padding: 32px;
