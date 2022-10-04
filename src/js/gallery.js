@@ -1,5 +1,5 @@
 import FilmAPIService from './feach/FilmAPIService';
-import moviesMurkup from './templates/movi-card.hbs';
+import moviesMurkup from '../templates/movi-card.hbs';
 import remakeGenres from './feach/remake-genres-ids';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import storageApi from './localStorage/storage';
