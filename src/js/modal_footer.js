@@ -12,6 +12,6 @@
   function toggleModal() {
     refs.body.classList.toggle("overflowHidden");
     document.body.classList.toggle("modal-open-team");
-    refs.modal.classList.toggle("is-hidden-team");
+    refs.modal.classList.toggle("d-none-team");
   }
 })();
