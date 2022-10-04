@@ -173,7 +173,9 @@ refs.addWatched.addEventListener('click', e => {
       storageApi.load(refs.WATCHED_KEY).length === 0
     ) {
       storageApi.save(refs.WATCHED_KEY, [movieData]);
-      Notify.info(`Added to watched`);
+      Notify.info(`Added to watched`, {
+        background: '#ff6b01'
+      });
       refs.addWatched.textContent = 'remove from watched';
       refs.addWatched.style.backgroundColor = '#ff6b01';
       refs.addWatched.style.color = '#fff';
@@ -227,4 +229,12 @@ refs.addQueued.addEventListener('click', e => {
   }
 
   refs.addQueued.removeEventListener;
+});
+
+Notify.init({
+  timeout: 1200,
+  cssAnimationStyle: 'zoom',
+  info: {
+  background: '#ff6b01',
+}
 });

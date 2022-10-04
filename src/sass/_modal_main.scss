@@ -91,13 +91,16 @@
   line-height: 1.16;
   color: #000000;
   margin-bottom: 20px;
+  
   @media screen and (min-width: $mobile) {
     font-size: 20px;
     line-height: 1.15;
+    margin-top: 10px;
   }
   @media screen and (min-width: $tablet) {
     font-size: 20px;
     line-height: 1.15;
+    margin-top: 0;
   }
 }
 .modal-info {
@@ -213,3 +216,4 @@ width: 115px;
 .scroll {
   overflow-y: auto;
 }
+
