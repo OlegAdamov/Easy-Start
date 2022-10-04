@@ -5,6 +5,7 @@ const refs = {
   form: document.querySelector('.search-form'),
   errorOutput: document.querySelector('.error-output'),
   headRefs: document.querySelectorAll('.header_href '),
+  buttonsLibrary: document.querySelector('.buttons-library'),
 };
 const { height: searchContainer } = refs.head.getBoundingClientRect();
 
@@ -49,6 +50,7 @@ function addStyleByScroll() {
   refs.toggleBtn.classList.remove('toggle');
   refs.errorOutput.classList.add('hidden-error');
   refs.errorOutput.style.top = '80px';
+  refs.buttonsLibrary.classList.add('fixed-header__button');
 }
 function removeStyleByScroll() {
   document.body.style.paddingTop = '';
@@ -62,4 +64,5 @@ function removeStyleByScroll() {
   refs.toggleBtn.classList.remove('fixed-toggle');
   refs.errorOutput.classList.remove('hidden-error');
   refs.errorOutput.style.top = '';
+  refs.buttonsLibrary.classList.remove('fixed-header__button');
 }
