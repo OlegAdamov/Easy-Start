@@ -201,3 +201,27 @@
     display: none;
   }
 }
+
+.fixed-header__button{
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  @media screen and (min-width: 438px) {
+right: 250px;
+  }
+ 
+  @media screen and (min-width: $tablet) {
+      top: 20px;
+        right: 300px;
+    }
+  
+    @media screen and (min-width: $desktop) {
+      top: 40px;
+      right: 550px;
+    }
+
+        button {
+            width: 80px;
+            height: 30px;
+}
+}

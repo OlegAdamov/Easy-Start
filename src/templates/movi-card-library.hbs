@@ -1,0 +1,15 @@
+<li id='{{id}}' class='gallery__item'>
+    <div class="overflowHidden">
+        <img class="gallery__img" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}} {{name}}"
+            id="{{id}}"
+            onerror="this.onerror=null;this.src='https://ik.imagekit.io/dqs5dhaf3/onerror_xia2bwu8M.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1664537019915';" />
+    </div>
+    <div class='meta'>
+        <h2 class='gallery__title'>{{title}}</h2>
+        <div class='discription'>
+            <p class='gallery__discription'>{{genresName}}
+                |
+                {{release_date}}<span class="gallery__vote">{{vote_average
+}}</span></p>
+        </div>
+</li>

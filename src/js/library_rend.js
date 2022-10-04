@@ -1,4 +1,4 @@
-import moviesMurkup from '../templates/movi-card.hbs';
+import moviesMurkup from '../templates/movi-card-library.hbs';
 import { pagination } from './pagination';
 
 const watched = document.querySelector('.watched');
