@@ -141,3 +141,12 @@
     cursor: pointer;
   }
 }
+.gallery__vote{
+  color: var(--main-text-color);
+  background-color:var(--button-color);
+  font-size: 12px;
+    line-height: 1.16;
+    padding: 3px 12px 1px 12px;
+    border-radius: 5px;   
+    margin-left: 7px;
+}
