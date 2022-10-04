@@ -1,15 +1,15 @@
-import loader from './loader'
+import loader from './loader';
 const refHome = document.querySelector('#activ-homeJs');
 const refMyLibrary = document.querySelector('#activ-libraryJs');
 const formPdg = document.querySelector('.form_pdg');
 const buttonsPdg = document.querySelector('.buttons-library');
-const header = document.querySelector('.header_bgr')
+const header = document.querySelector('.header_bgr');
 refMyLibrary.addEventListener('click', onRefMyLibrary);
 refHome.addEventListener('click', onRefHome);
 
 function onRefMyLibrary(evt) {
   evt.preventDefault();
-  loader()
+  loader();
   header.classList.add('header_lib__bgr');
   refHome.classList.remove('current');
   refMyLibrary.classList.add('current');
