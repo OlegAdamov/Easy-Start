@@ -18,6 +18,39 @@
     margin-right: auto;
   }
 }
+.header_lib__bgr{
+  position: relative;
+    padding: 15px;
+    height: 230px;
+    background-image:linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.56),
+      rgba(0, 0, 0, 0.56)
+    ), url(../images/mob.png);
+    background-size: cover;
+  
+    @media screen and (min-width: $tablet) {
+      height: 219px;
+      background-image:linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.56),
+      rgba(0, 0, 0, 0.56)
+    ), url(../images/tablet.png);
+    }
+  
+    @media screen and (min-width: $desktop) {
+      background-image:linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.56),
+      rgba(0, 0, 0, 0.56)
+    ), url(../images/desk.png);
+      width: $desktop;
+      height: 216px;
+      padding: 32px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+}
 .none {
   display: none;
   @media screen and (min-width: $tablet) {
