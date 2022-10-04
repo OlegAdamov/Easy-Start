@@ -114,6 +114,12 @@
 .info-element {
   display: flex;
   align-items: center;
+  @media screen and (min-width: $mobile) {
+    &:not(:last-child){
+      margin-bottom: 10px;
+    }
+  }
+  
 }
 .info-item{
 
@@ -202,4 +208,7 @@ width: 115px;
 }
 .no-scroll {
   overflow: hidden;
+}
+.scroll {
+  overflow-y: auto;
 }

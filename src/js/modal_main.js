@@ -5,7 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
   galleryRef: document.querySelector('.gallery'),
-
+  watched: document.querySelector('.watched'),
   closeBtn: document.querySelector('.modal_close_btn'),
   backdrop: document.querySelector('.backdrop'),
   modalContainer: document.querySelector('.modal-container'),
@@ -17,6 +17,7 @@ const refs = {
 };
 
 refs.galleryRef.addEventListener('click', onGalleryClick);
+refs.watched.addEventListener('click', onGalleryClick);
 
 let title = null;
 let poster_path = null;
@@ -58,7 +59,9 @@ function openModal(movie) {
       <div class="modal-table">
         <div class="info-element">      
         <p class="info-item">Vote / Votes</p>
-        <p class="count" id="vote"><span class = "vote_accent">${Number(film.vote_average).toFixed(1)}</span> / ${film.vote_count}</p>
+        <p class="count" id="vote"><span class = "vote_accent">${Number(
+          film.vote_average
+        ).toFixed(1)}</span> / ${film.vote_count}</p>
         </div>
         <div class="info-element">
         <p class="info-item">Popularity</p>
@@ -70,27 +73,62 @@ function openModal(movie) {
         </div>
         <div class="info-element">
         <p class="info-item">Genre</p>
-        <p class="count">${film.genres
-          .map(genre => genre.name)
-          .join(', ')}</p>
+        <p class="count">${film.genres.map(genre => genre.name).join(', ')}</p>
           </div>
         </div>
         <h3 class="about">About</h3>
         <p class="about-info">${film.overview}</p>
-        </div>
-       
+        </div>       
         </div>`;
     id = film.id;
     title = film.title;
     votes = film.vote_count;
     poster_path = film.poster_path;
     release_date = film.release_date.split('-')[0];
+    genresName = film.genres.map(genre => genre.name).join(', ');
     movieData = { ...film, genresName, release_date };
+    comparisonQueue();
+    comparisonWatched();
   });
-
   refs.backdrop.classList.remove('is-hidden');
   document.body.classList.add('no-scroll');
+  refs.backdrop.classList.add('scroll');
   closeModal();
+}
+
+function comparisonQueue() {
+  refs.addQueued.textContent = 'add to queue';
+  refs.addQueued.style.backgroundColor = '#fff';
+  refs.addQueued.style.color = '#000';
+  const savedData = storageApi.load(refs.QUEUED_KEY);
+  if (savedData) {
+    for (const el of savedData) {
+      if (JSON.stringify(el) === JSON.stringify(movieData)) {
+        refs.addQueued.textContent = 'remove from queue';
+        refs.addQueued.style.backgroundColor = '#ff6b01';
+        refs.addQueued.style.color = '#fff';
+        break;
+      }
+    }
+  }
+}
+
+function comparisonWatched() {
+  refs.addWatched.textContent = 'add to watched';
+  refs.addWatched.style.backgroundColor = '#fff';
+  refs.addWatched.style.color = '#000';
+  const savedDate = storageApi.load(refs.WATCHED_KEY);
+
+  if (savedDate) {
+    for (const el of savedDate) {
+      if (JSON.stringify(el) === JSON.stringify(movieData)) {
+        refs.addWatched.textContent = 'remove from watched';
+        refs.addWatched.style.backgroundColor = '#ff6b01';
+        refs.addWatched.style.color = '#fff';
+        break;
+      }
+    }
+  }
 }
 
 function closeModal() {
@@ -98,80 +136,95 @@ function closeModal() {
     if (e.target === refs.backdrop) {
       refs.backdrop.classList.add('is-hidden');
       document.body.classList.remove('no-scroll');
+      refs.backdrop.classList.remove('scroll');
     }
   });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       refs.backdrop.classList.add('is-hidden');
       document.body.classList.remove('no-scroll');
+      refs.backdrop.classList.remove('scroll');
     }
   });
   refs.closeBtn.addEventListener('click', () => {
     refs.backdrop.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
+    refs.backdrop.classList.remove('scroll');
   });
 }
-refs.addWatched.addEventListener('click', () => {
-  refs.addWatched.style.backgroundColor = '#ff6b01';
-  refs.addWatched.style.color = '#fff';
-  // refs.addWatched.textContent = 'remove from watched';
-  if (!storageApi.load(refs.WATCHED_KEY)) {
-    storageApi.save(refs.WATCHED_KEY, [movieData]);
-    Notify.info(`Added to Watched`);
-    return;
-  }
-  const savedData = storageApi.load(refs.WATCHED_KEY);
-  for (const el of savedData) {
-    if (JSON.stringify(el) === JSON.stringify(movieData)) {
-      Notify.info(`Film is already in Watched`);
+
+refs.addWatched.addEventListener('click', e => {
+  if (e.target.textContent == 'remove from watched') {
+    const savedData = storageApi.load(refs.WATCHED_KEY);
+    for (let i = 0; i < savedData.length; i++) {
+      if (JSON.stringify(savedData[i]) === JSON.stringify(movieData)) {
+        savedData.splice(i, 1);
+        console.log(savedData);
+        storageApi.save(refs.WATCHED_KEY, savedData);
+        Notify.info(`Film is remove from watched`);
+        refs.addWatched.textContent = 'add to watched';
+        refs.addWatched.style.backgroundColor = '#fff';
+        refs.addWatched.style.color = '#000';
+      }
+    }
+  } else {
+    if (
+      !storageApi.load(refs.WATCHED_KEY) ||
+      storageApi.load(refs.WATCHED_KEY).length === 0
+    ) {
+      storageApi.save(refs.WATCHED_KEY, [movieData]);
+      Notify.info(`Added to watched`);
+      refs.addWatched.textContent = 'remove from watched';
+      refs.addWatched.style.backgroundColor = '#ff6b01';
+      refs.addWatched.style.color = '#fff';
       return;
     }
+    const savedData = storageApi.load(refs.WATCHED_KEY);
+    savedData.push(movieData);
+    storageApi.save(refs.WATCHED_KEY, savedData);
+    Notify.info(`Added to watched`);
+    refs.addWatched.textContent = 'remove from watched';
+    refs.addWatched.style.backgroundColor = '#ff6b01';
+    refs.addWatched.style.color = '#fff';
   }
-  savedData.push(movieData);
 
-  storageApi.save(refs.WATCHED_KEY, savedData);
-  Notify.info(`Added to Watched`);
   refs.addWatched.removeEventListener;
 });
 
-refs.addQueued.addEventListener('click', () => {
-  refs.addQueued.style.backgroundColor = '#ff6b01';
-  refs.addQueued.style.color = '#fff';
-  if (!storageApi.load(refs.QUEUED_KEY)) {
-    storageApi.save(refs.QUEUED_KEY, [movieData]);
-
-    Notify.info(`Added to Queue`);
-    return;
-  }
-  const savedData = storageApi.load(refs.QUEUED_KEY);
-  for (const el of savedData) {
-    if (JSON.stringify(el) === JSON.stringify(movieData)) {
-      Notify.info(`Film is already in Queue`);
+refs.addQueued.addEventListener('click', e => {
+  if (e.target.textContent == 'remove from queue') {
+    const savedData = storageApi.load(refs.QUEUED_KEY);
+    for (let i = 0; i < savedData.length; i++) {
+      if (JSON.stringify(savedData[i]) === JSON.stringify(movieData)) {
+        savedData.splice(i, 1);
+        console.log(savedData);
+        storageApi.save(refs.QUEUED_KEY, savedData);
+        Notify.info(`Film is remove from Queue`);
+        refs.addQueued.textContent = 'add to queue';
+        refs.addQueued.style.backgroundColor = '#fff';
+        refs.addQueued.style.color = '#000';
+      }
+    }
+  } else {
+    if (
+      !storageApi.load(refs.QUEUED_KEY) ||
+      storageApi.load(refs.QUEUED_KEY).length === 0
+    ) {
+      storageApi.save(refs.QUEUED_KEY, [movieData]);
+      Notify.info(`Added to Queue`);
+      refs.addQueued.textContent = 'remove from queue';
+      refs.addQueued.style.backgroundColor = '#ff6b01';
+      refs.addQueued.style.color = '#fff';
       return;
     }
+    const savedData = storageApi.load(refs.QUEUED_KEY);
+    savedData.push(movieData);
+    storageApi.save(refs.QUEUED_KEY, savedData);
+    Notify.info(`Added to Queue`);
+    refs.addQueued.textContent = 'remove from queue';
+    refs.addQueued.style.backgroundColor = '#ff6b01';
+    refs.addQueued.style.color = '#fff';
   }
-  savedData.push(movieData);
 
-  storageApi.save(refs.QUEUED_KEY, savedData);
-
-  Notify.info(`Added to Queue`);
+  refs.addQueued.removeEventListener;
 });
-
-refs.addQueued.addEventListener('click', handlerQueue);
-refs.addWatched.addEventListener('click', handlerWatched);
-
-function handlerQueue(e) {
-  var el = e.target;
-  if (el.innerHTML == 'add to queue') {
-    refs.addQueued.style.backgroundColor = '#fff';
-    refs.addQueued.style.color = '#000';
-  }
-}
-
-function handlerWatched(e) {
-  var el = e.target;
-  if (el.innerHTML == 'add to watched') {
-    refs.addWatched.style.backgroundColor = '#fff';
-    refs.addWatched.style.color = '#000';
-  }
-}

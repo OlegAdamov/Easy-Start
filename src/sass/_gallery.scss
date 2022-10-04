@@ -29,6 +29,21 @@
     transform: scale(1.05);
     box-shadow: 0px 10px 25px 3px var(--janre-color);
   }
+  &:focus .gallery__img,
+  &:hover .gallery__img {
+    @media screen and (min-width: $mobile) {
+      transform: scale(1.05);
+      border-radius: 0 0 20px 20px;
+    }
+    @media screen and (min-width: $tablet) {
+      transform: scale(1.08);
+      border-radius: 0 0 40px 40px;
+    }
+    @media screen and (min-width: $desktop) {
+      transform: scale(1.1);
+      border-radius: 0 0 65px 65px;
+    }
+  }
 }
 .overflowHidden {
   overflow: hidden;
@@ -48,11 +63,6 @@
     height: 574px;
   }
   transition: var(--transition-duration, --transition-timing-function);
-  &:focus,
-  &:hover {
-    transform: scale(1.1);
-    border-radius: 0 0 65px 65px;
-  }
 }
 
 .meta {

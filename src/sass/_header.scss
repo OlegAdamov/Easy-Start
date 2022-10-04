@@ -140,20 +140,64 @@
   color: #ff001b;
 }
 
-
 ///////////FIXED HEADER///////////////////
 .fixed-header {
   position: fixed;
-  z-index: 999;
+  z-index: 25;
   left: 50%;
   top: 0;
   height: 100px;
   transform: translate(-50%, 0);
+  transition: var(--transition-duration, --transition-timing-function);
+  @media screen and (max-width: 1279px) {
+    height: 66px;
+    width: 100%;
+  }
+}
+.fixed-header.hide {
+  transform: translateY(-66px);
 }
 .fixed-form {
   position: absolute;
   top: 36px;
   left: 50%;
   transform: translate(-50%);
+  @media screen and (max-width: 767px) {
+    top: 15px;
+    left: 35%;
+    width: 200px;
+  }
+  @media screen and (min-width: $tablet) and (max-width: 1279px) {
+    top: 20px;
+    left: 44%;
+    width: 260px;
+  }
 }
+.hidden-head-href {
+  @media screen and (max-width: 550px) {
+    display: none;
+  }
+}
+.fixed-toggle {
+  display: block;
+  position: absolute;
+  right: 25px;
+  bottom: 24px;
 
+  @media screen and (min-width: 550px) {
+    right: 185px;
+  }
+  @media screen and (min-width: $tablet) {
+    bottom: 13px;
+    right: 220px;
+  }
+  @media screen and (min-width: $desktop) {
+    bottom: 30px;
+    right: 256px;
+  }
+}
+.hidden-error {
+  @media screen and (max-width: 1279px) {
+    display: none;
+  }
+}
