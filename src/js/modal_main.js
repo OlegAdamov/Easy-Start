@@ -174,7 +174,7 @@ refs.addWatched.addEventListener('click', e => {
     ) {
       storageApi.save(refs.WATCHED_KEY, [movieData]);
       Notify.info(`Added to watched`, {
-        background: '#ff6b01'
+        background: '#ff6b01',
       });
       refs.addWatched.textContent = 'remove from watched';
       refs.addWatched.style.backgroundColor = '#ff6b01';
@@ -235,6 +235,6 @@ Notify.init({
   timeout: 1200,
   cssAnimationStyle: 'zoom',
   info: {
-  background: '#ff6b01',
-}
+    background: '#ff6b01',
+  },
 });

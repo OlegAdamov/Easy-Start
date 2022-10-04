@@ -5,7 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import storageApi from './localStorage/storage';
 import { pagination } from './pagination';
 import Pagination from 'tui-pagination';
-import loader from './loader'
+import loader from './loader';
 
 const filmAPIService = new FilmAPIService();
 const refs = {
@@ -38,7 +38,7 @@ async function searchMovies(e) {
     throwError();
     window.setTimeout(removeError, 2500);
     return;
-  };
+  }
   try {
     const responsePopularMovie = await filmAPIService.getMovieByQuery();
     pagination.reset(responsePopularMovie.data.total_results);
@@ -50,8 +50,8 @@ async function searchMovies(e) {
     createGalleryMarkupByQuery(remakeGenres(movies, storageApi.load('genres')));
   } catch (error) {
     console.log(error.name);
-  };
-};
+  }
+}
 
 export async function getResponseMovie(event) {
   try {
@@ -73,23 +73,23 @@ export async function getResponseMovie(event) {
     console.log(error);
     Notify.failure(error.name);
   }
-};
+}
 
 (async () => await getResponseMovie())();
 
 function createGalleryMarkup(res) {
-  loader()
+  loader();
   const markup = res.map(movie => moviesMurkup(movie)).join('');
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
   refs.gallery.innerHTML = markup;
   pagination._offByEventName('afterMove', 'getNextPage');
   pagination.on('afterMove', getResponseMovie);
-  window.scrollTo(0,0)
-};
+  window.scrollTo(0, 0);
+}
 
 function createGalleryMarkupByQuery(res) {
-  loader()
+  loader();
   const markup = res.map(movie => moviesMurkup(movie)).join('');
   refs.queued.innerHTML = null;
   refs.watched.innerHTML = null;
@@ -97,11 +97,11 @@ function createGalleryMarkupByQuery(res) {
   refs.gallery.innerHTML = markup;
   pagination._offByEventName('afterMove', 'getNextPage');
   pagination.on('afterMove', getResponseMovie);
-};
+}
 function throwError() {
   refs.throwError.textContent =
     'Search result not successful. Enter the correct movie name and try again';
-};
+}
 function removeError() {
   refs.throwError.textContent = '';
-};
+}
