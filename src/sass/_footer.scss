@@ -36,17 +36,20 @@ h6 {
         margin-bottom: 0;
         }; 
     };
-
-        
-   
-    };
+    
+    
+};
+&--team {
+    text-decoration: underline;
+    cursor: pointer;
+}
 };
  .footer--icon {
         margin-right: 10px;
         margin-left: 10px;
         };
-.footer > span > p > a:hover,
-.footer > span > p > a:focus {
+.footer > span > p > span:hover,
+.footer > span > p > span:focus {
     color: var(--button-hover-color);
     transform: scale(1.05);
     transition: var(--transition-duration, --transition-timing-function);
