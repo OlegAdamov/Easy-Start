@@ -7,6 +7,7 @@
     "format": "prettier-eslint --write \"src/**/*.js\"",
     "lint:fix": "eslint --fix \"src/**/*.js\"",
     "lint": "eslint \"src/**/*.js\"",
+    "lint:js": "eslint src/**/*.{js,jsx}",
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /Easy-Start/"
   },
