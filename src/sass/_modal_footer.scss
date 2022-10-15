@@ -1,133 +1,133 @@
-// .backdrop-team {
-//     position: fixed;
-//         z-index: 30;
-//         width: 100%;
-//         height: 100%;
-//         opacity: 1;
-//         top: 0;
-//         left: 0;
-//         background-color: rgba(0, 0, 0, 0.2);
-//         overflow-y: auto;
-//             visibility: visible;
-//             transform: scale(1);
-//             transition: opacity var(--transition-duration) var(--transition-timing-function),
-//                 visibility var(--transition-duration) var(--transition-timing-function),
-//                 transform var(--transition-duration) var(--transition-timing-function);
+.backdrop-team {
+  position: fixed;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  visibility: visible;
+  transform: scale(1);
+  transition: opacity var(--transition-duration)
+      var(--transition-timing-function),
+    visibility var(--transition-duration) var(--transition-timing-function),
+    transform var(--transition-duration) var(--transition-timing-function);
 
-//     @media screen and (max-width: calc($mobile - 1px)) {
-//             padding: 30px 15px;
-//         }
-// }
+  @media screen and (max-width: calc($mobile - 1px)) {
+    padding: 30px 15px;
+  }
+}
 
-// .d-none-team {
-//     display:none;
-// }
-// .footer__modal {
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     padding: 60px 20px 20px;
-//     width: 240px;
-//     transform: translate(-50%, -50%);
-//     box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%), 0px 2px 1px rgb(0 0 0 / 20%);
-//     border-radius: 15px;
-//     margin-bottom: 20px;
+.d-none-team {
+  display: none;
+}
+.footer__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 60px 20px 20px;
+  width: 240px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%),
+    0px 2px 1px rgb(0 0 0 / 20%);
+  border-radius: 15px;
+  margin-bottom: 20px;
 
-//             @media screen and (max-width: ($desktop - 1px)) {
-//                 position: relative;
-//                 overflow-y: scroll;
-//                 top: 20%;
-//                 transform: translate(-50%, 0);
-//                 margin: -6px;
+  @media screen and (max-width: ($desktop - 1px)) {
+    position: relative;
+    overflow-y: scroll;
+    top: 20%;
+    transform: translate(-50%, 0);
+    margin: -6px;
+  }
 
-//           }
+  @media screen and (min-width: ($tablet)) {
+    width: 400px;
+  }
+  @media screen and (min-width: $desktop) {
+    width: 800px;
+  }
 
-//           @media screen and (min-width: ($tablet)) {
-//             width: 400px;
+  &--list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    contain: content;
 
-//           }
-//   @media screen and (min-width: $desktop) {
-//       width: 800px;
-//   }
+    @media screen and (min-width: ($tablet)) {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      text-align: center;
+      margin: 6;
+    }
+  }
 
-// &--list {
-// display: flex;
-// flex-direction: column;
-// justify-content: center;
-// align-items: center;
-// contain: content;
+  &--card {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    overflow: hidden;
+    width: 100px;
 
-//     @media screen and (min-width: ($tablet)) {
-//         display: flex;
-//         flex-wrap: wrap;
-//         flex-direction: row;
-//         justify-content: center;
-//         text-align: center;
-//         margin: 6;
-//     }
-// }
+    &h3 {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 1.16;
+      color: #000000;
 
-// &--card {
-//     flex-direction: column;
-//     align-items: center;
-//     margin: 20px;
-//     overflow: hidden;
-//     width: 100px;
+      @media screen and (min-width: $mobile) {
+        font-size: 20px;
+        line-height: 1.15;
+      }
 
-// &h3{
+      @media screen and (min-width: $tablet) {
+        font-size: 20px;
+        line-height: 1.15;
+      }
+    }
 
-// font-family: 'Roboto';
-// font-style: normal;
-// font-weight: 500;
-// font-size: 30px;
-// line-height: 1.16;
-// color: #000000;
+    &p {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.33;
+      text-transform: uppercase;
+      color: #000000;
+    }
+  }
+  &--card-img {
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 7px;
+    img {
+      transition: 400ms ease-out;
 
-// @media screen and (min-width: $mobile) {
-//     font-size: 20px;
-//     line-height: 1.15;
-// }
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+.icon--close {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
 
-// @media screen and (min-width: $tablet) {
-//     font-size: 20px;
-//     line-height: 1.15;
-// }}
+  fill: #000;
+  transition: fill var(--transition-duration) var(--transition-timing-function);
 
-// &p {
-//     font-weight: 500;
-//     font-size: 12px;
-//     line-height: 1.33;
-//     text-transform: uppercase;
-//     color: #000000;
-// }
-// }
-// &--card-img {
-//         border-radius: 15px;
-//         overflow: hidden;
-//         margin-bottom: 7px;
-// img {
-//     transition: 400ms ease-out;
-
-//         &:hover {
-//         transform: scale(1.10);
-//     }
-// }
-// }
-// }
-//   .icon--close {
-//       position: absolute;
-//       top: 20px;
-//       right: 15px;
-//     width: 30px;
-//         height: 30px;
-//         background-color: transparent;
-//         border: none;
-
-//       fill: #000;
-//       transition: fill var(--transition-duration) var(--transition-timing-function);
-
-//     &:hover,
-//     &:focus {
-//        fill: var(--button-hover-color);
-//     }
-// }
+  &:hover,
+  &:focus {
+    fill: var(--button-hover-color);
+  }
+}
