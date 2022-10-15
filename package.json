@@ -5,8 +5,6 @@
   "homepage": "https://OlegAdamov/parcel-project-template",
   "scripts": {
     "format": "prettier-eslint --write \"src/**/*.js\"",
-    "lint:fix": "eslint --fix \"src/**/*.js\"",
-    "lint": "eslint \"src/**/*.js\"",
     "lint:js": "eslint src/**/*.{js,jsx}",
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /Easy-Start/"
@@ -24,7 +22,6 @@
   "dependencies": {
     "modern-normalize": "^1.1.0",
     "axios": "^0.27.2",
-    "eslint-plugin-jest": "^27.0.4",
     "@glidejs/glide": "^3.6.0",
     "handlebars": "^4.7.7",
     "tui-pagination": "^3.4.1",
@@ -33,13 +30,10 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
     "buffer": "^6.0.3",
-    "eslint": "7.32.0",
-    "eslint-plugin-no-only-tests": "^3.0.0",
     "parcel": "^2.6.0",
     "parcel-reporter-clean-dist": "^1.0.4",
     "parcel-transformer-hbs": "^1.0.4",
     "posthtml-include": "^1.7.4",
-    "prettier-eslint-cli": "^7.1.0",
     "process": "^0.11.10"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead"
