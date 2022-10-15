@@ -1,0 +1,2 @@
+(()=>{const e={openModalBtn:document.querySelector("[data-modal-team-open]"),closeModalBtn:document.querySelector("[data-modal-team-close]"),modal:document.querySelector("[data-modal-team"),body:document.querySelector("body")};function o(){e.body.classList.toggle("overflowHidden"),document.body.classList.toggle("modal-open-team"),e.modal.classList.toggle("d-none-team")}e.openModalBtn.addEventListener("click",o),e.closeModalBtn.addEventListener("click",o)})();
+//# sourceMappingURL=index.970c715a.js.map
